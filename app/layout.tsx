@@ -6,7 +6,6 @@ import "@/src/styles/index.scss";
 import TabsComponent from "@/src/components/tabs/TabsComponent";
 import dynamic from "next/dynamic";
 import { ToastContainer } from "react-toastify";
-import { UserProvider } from "@/src/context";
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
   ssr: false,
@@ -34,7 +33,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <UserProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -54,6 +52,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-    </UserProvider>
   );
 }

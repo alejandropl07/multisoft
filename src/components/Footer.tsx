@@ -101,19 +101,13 @@ export default function Footer() {
             >
               About us
             </Link>
-            <Link
-              color="text.secondary"
-              href="/pricing"
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              Pricing
-            </Link>
+            
             <Link
               color="text.secondary"
               href="/contact"
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              Contact
+              Contacto
             </Link>
           </Box>
         </Box>

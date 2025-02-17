@@ -24,11 +24,11 @@ function TabsComponent() {
       menuName: "Home",
       onClick: () => handleMenuClick(""),
     },
-    {
-      icon: "fa-map",
-      menuName: "Pricing",
-      onClick: () => handleMenuClick("pricing"),
-    },
+    // {
+    //   icon: "fa-map",
+    //   menuName: "Pricing",
+    //   onClick: () => handleMenuClick("pricing"),
+    // },
     {
       icon: "fa-users",
       menuName: "About",
@@ -41,7 +41,7 @@ function TabsComponent() {
     },
     {
       icon: "fa-envelope-open",
-      menuName: "Contact",
+      menuName: "Contacto",
       onClick: () => handleMenuClick("contact"),
     },
     {

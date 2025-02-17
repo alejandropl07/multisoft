@@ -14,9 +14,14 @@ const heroContent = {
   heroImage: "/assets/img/hero/dark.png",
   heroMobileImage: heroImgMobile,
   heroTitleName: "Multisoft",
-  heroDesignation: "real state",
-  heroDescriptions: `We have been in the real estate industry for over a decade. We started as a boutique marketing agency in Beverly Hills, California, and have grown to become one of the fastest growing luxury real estate lead generation companies in the US.`,
-  heroBtn: "more about us",
+  heroDesignation: "",
+  heroDescriptions: `MultiConsulting S.A.de C.V. tiene su origen en
+1988. A partir de ese momento, hemos ofrecido
+servicios productos de la más alta calidad, para
+hacer más eficiente la gestión directiva, tanto en la
+iniciativa privada como en la gubernamental a todos
+sus niveles.`,
+  heroBtn: "Más sobre nosotros",
 };
 
 const HomePage = () => {
@@ -26,10 +31,6 @@ const HomePage = () => {
   }
 
   const router = useRouter();
-
-  const handleShowMap = () => {
-    router.push("/pricing");
-  };
 
   return (
     <>
@@ -66,14 +67,7 @@ const HomePage = () => {
                   <span className="button-text">{heroContent.heroBtn}</span>
                   <span className="button-icon fa fa-arrow-right"></span>
                 </button>
-                <button
-                  className="button"
-                  onClick={handleShowMap}
-                  style={{ marginLeft: "1rem", marginBottom: "1rem" }}
-                >
-                  <span className="button-text">PRICING</span>
-                  <span className="button-icon fa fa-arrow-right"></span>
-                </button>
+                
               </div>
             </div>
           </div>
@@ -103,8 +97,8 @@ const HomePage = () => {
           {/* End  Modal for About More */}
         </div>
       </div>
-      <Reviews/>
-      <FAQ/>
+      <Reviews />
+      <FAQ />
       <Footer />
     </>
   );

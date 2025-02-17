@@ -1,10 +1,5 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { auth, authPasswordLessSignIn } from "@/src/firebase/firebase";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/src/redux/hooks";
 import { toast } from "react-toastify";
@@ -47,38 +42,7 @@ export default function Login({
 
     console.log(payload);
 
-    try {
-      const response = (await authPasswordLessSignIn({
-        email: email,
-        url: redirectUrl,
-      })) as any;
-      switch (response?.data?.status) {
-        case "success":
-          toast.success(response?.data?.message);
-          break;
-        case "error":
-          toast.error(response?.data?.message);
-          setError(response?.data?.message);
-          break;
-        default:
-          toast.error(
-            "Something went wrong, please try again or contact our support team."
-          );
-          setError(
-            "Something went wrong, please try again or contact our support team."
-          );
-          break;
-      }
-    } catch (error) {
-      const errorMessage = error.message;
-      toast.error(errorMessage);
-      setError(
-        "Something went wrong, please try again or contact our support team."
-      );
-    } finally {
-      setEmailSent(true);
-      setSending(false);
-    }
+   
   };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -107,38 +71,7 @@ export default function Login({
       return;
     }
     let user;
-    try {
-      if (showRegister) {
-        const response = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        user = response.user;
-        dispatch(loginSuccess(user));
-      } else {
-        const response = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        user = response.user;
-        dispatch(loginSuccess(user));
-      }
-      router.push("/dashboard");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    }
+    
   };
 
   return (

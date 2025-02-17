@@ -10,19 +10,19 @@ export default function ContactPage() {
         data-aos-duration="1200"
       >
         <h1>
-          get in <span>touch</span>
+          ponte en <span>contacto</span>
         </h1>
-        <span className="title-bg">contact</span>
+        <span className="title-bg">contacto</span>
       </div>
       <div className="container" data-aos="fade-up" data-aos-duration="1200">
         <div className="row">
           {/*  Left Side Starts */}
           <div className="col-12 col-lg-4">
             <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
-            Let’s work together!
+            Trabajemos juntos!
             </h3>
             <p className="open-sans-font mb-4">
-            We are here to help you. If you have any questions or need assistance, or you need training on how to convert our leads, feel free to contact us.
+            Estamos aquí para ayudarte. Si tienes alguna pregunta o necesitas más información sobre nuestra empresa que ofrece soluciones ERP, no dudes en contactarnos.
             </p>
             <Address />
             {/* End Address */}

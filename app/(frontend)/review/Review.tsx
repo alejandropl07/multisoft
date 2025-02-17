@@ -33,13 +33,13 @@ export default function Review(review: ReviewProps) {
       <CardContent>
         <p className="open-sans-font">{review.description}</p>
       </CardContent>
-      <CardActions disableSpacing>
+      {/* <CardActions disableSpacing>
         {Array(review.rating)
           .fill()
           .map((_, i) => (
             <p key={i}>&#11088;</p>
           ))}
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

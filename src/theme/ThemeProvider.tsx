@@ -21,8 +21,7 @@ const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     // Hide loader
     // If you don't want loader remove <div className="page-loader" /> element form _app
-    let timer: NodeJS.Timeout;
-    timer = setTimeout(() => removePageLoader(), 1000);
+    const timer: NodeJS.Timeout = setTimeout(() => removePageLoader(), 1000); ;
     return () => clearTimeout(timer);
   }, [pathname]);
 

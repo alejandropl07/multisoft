@@ -33,9 +33,7 @@ export default function FAQ() {
           gap: { xs: 3, sm: 6 },
         }}
       >
-        <h1 className="text-uppercase poppins-font">
-          Frequently asked questions
-        </h1>
+        <h1 className="text-uppercase poppins-font">Preguntas frecuentes</h1>
 
         <Box sx={{ width: "100%" }}>
           <Accordion
@@ -52,7 +50,7 @@ export default function FAQ() {
               id="panel1d-header"
             >
               <Typography component="h3" variant="subtitle2">
-                How many zip codes can I cover?
+                Qué es un ERP?
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -61,15 +59,16 @@ export default function FAQ() {
                 gutterBottom
                 sx={{ maxWidth: { sm: "100%", md: "70%" } }}
               >
-                As many as you can handle! Our platform allows you to select the
-                zip codes you want to target, with the flexibility to adjust
-                your coverage based on your capacity and growth goals. Whether
-                you're focused on a single neighborhood or expanding citywide,
-                we can accommodate your needs.
+                Enterprise Resource Planning (ERP) es un tipo de software que
+                las organizaciones utilizan para gestionar las actividades
+                empresariales diarias, como la contabilidad, el
+                aprovisionamiento, la gestión de proyectos, la gestión de
+                riesgos y el cumplimiento, y las operaciones de la cadena de
+                suministro.
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion
+          {/* <Accordion
             expanded={expanded === "panel2"}
             onChange={handleChange("panel2")}
             sx={{
@@ -99,38 +98,7 @@ export default function FAQ() {
                 and provide a customized quote.
               </Typography>
             </AccordionDetails>
-          </Accordion>
-          <Accordion
-            expanded={expanded === "panel3"}
-            onChange={handleChange("panel3")}
-            sx={{
-              backgroundColor: isDark ? "#111111" : "white",
-              color: isDark ? "white" : "gray",
-            }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel3d-content"
-              id="panel3d-header"
-            >
-              <Typography component="h3" variant="subtitle2">
-                How many agents can run ads in each zip code?
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography
-                variant="body2"
-                gutterBottom
-                sx={{ maxWidth: { sm: "100%", md: "70%" } }}
-              >
-                Usually 2-3, depending on the market and it's demand. We limit
-                the number of agents per zip code to ensure that you have the
-                best chance of converting leads into clients. By reducing
-                competition within each area, we help you stand out and maximize
-                your return on investment.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </Box>
       </Container>
     </div>

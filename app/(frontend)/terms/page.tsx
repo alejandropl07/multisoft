@@ -9,9 +9,9 @@ const TermsPage = () => {
         data-aos-duration="1200"
       >
         <h1>
-          terms <span>of service</span>
+          Términos <span>de servicio</span>
         </h1>
-        <span className="title-bg">terms</span>
+        <span className="title-bg">Términos</span>
       </div>
       <div className="container" data-aos="fade-up" data-aos-duration="1200">
         <div className="row">

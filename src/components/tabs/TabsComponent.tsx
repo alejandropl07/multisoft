@@ -31,12 +31,12 @@ function TabsComponent() {
     // },
     {
       icon: "fa-users",
-      menuName: "About",
+      menuName: "Acerca",
       onClick: () => handleMenuClick("about"),
     },
     {
       icon: "fa-briefcase",
-      menuName: "Reviews",
+      menuName: "Reseñas",
       onClick: () => handleMenuClick("review"),
     },
     {

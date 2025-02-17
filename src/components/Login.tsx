@@ -85,7 +85,7 @@ export default function Login({
                 name="email"
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="YOUR EMAIL"
+                placeholder="CORREO"
                 required
               />
             </div>
@@ -98,7 +98,7 @@ export default function Login({
                 name="password"
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder="YOUR PASSWORD"
+                placeholder="CONTRASEÑA"
                 required
               />
             </div>
@@ -113,7 +113,7 @@ export default function Login({
                   name="repeatPassword"
                   value={repeatPassword}
                   onChange={handleRepeatPasswordChange}
-                  placeholder="REPEAT PASSWORD"
+                  placeholder="REPETIR CONTRASEÑA"
                   required
                 />
               </div>
@@ -123,7 +123,7 @@ export default function Login({
           <div className="col-12">
             <button type="submit" className="button" onClick={sendMagicLink}>
               <span className="button-text">
-                {showRegister ? "REGISTER" : "LOGIN"}
+                {showRegister ? "REGISTRO" : "LOGIN"}
               </span>
               <span className="button-icon fa fa-send"></span>
             </button>

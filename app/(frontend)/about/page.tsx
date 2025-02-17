@@ -18,9 +18,9 @@ const AboutPage = () => {
     <div data-aos="fade-down" data-aos-duration="1200" className="about">
       <div className="title-section text-start text-sm-center">
         <h1>
-          ABOUT <span>US</span>
+          SOBRE <span>NOSOTROS</span>
         </h1>
-        <span className="title-bg">Resume</span>
+        <span className="title-bg">RESUMEN</span>
       </div>
       <section className="main-content ">
         <div className="container">
@@ -43,11 +43,11 @@ const AboutPage = () => {
 
           {/* Timeline Starts */}
           <div className="row">
-            <div className="col-12">
+            {/* <div className="col-12">
               <h3 className="text-uppercase pb-5 mb-0 text-start text-sm-center custom-title ft-wt-600">
                 Our Timeline
               </h3>
-            </div>
+            </div> */}
             <div className="container">
               {timelineChunks.map((chunk, index) => (
                 <div className="row" key={index}>

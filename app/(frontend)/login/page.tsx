@@ -21,7 +21,7 @@ export default function LoginPage() {
         data-aos-duration="1200"
       >
         <h1>
-          Create <span>account</span>
+          Crear <span>cuenta</span>
         </h1>
         <span className="title-bg">login</span>
       </div>
@@ -30,7 +30,7 @@ export default function LoginPage() {
           {/*  Left Side Starts */}
           <div className="col-12 col-lg-4">
             <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
-              LOGIN / REGISTER
+              LOGIN / REGISTRO
             </h3>
             <div className="col-12 mb-3">
               <button
@@ -41,13 +41,13 @@ export default function LoginPage() {
               >
                 <span className="button-text">
                   {showRegister
-                    ? "Don't have an account? Sign in"
-                    : "Don't have an account? Sign up"}
+                    ? "No tienes una cuenta? Login"
+                    : "No tienes una cuenta? Registrar"}
                 </span>
               </button>
             </div>
             <p className="open-sans-font mb-4">
-              An account will be created for you if you don't have one...
+              Una cuenta será creada si usted no tiene una...
             </p>
           </div>
           {/* Left Side Ends */}

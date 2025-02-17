@@ -41,12 +41,12 @@ export default function Footer() {
           >
             <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
               <h3 className="text-uppercase mb-0 text-start text-sm-center custom-title ft-wt-600">
-                Join newsletter
+                Unirse al boletín
               </h3>
 
               <p className="open-sans-font mb-4">
-                Subscribe to our newsletter to receive our most exiting updates
-                and offers.
+                Suscríbase a nuestro boletín para recibir nuestras
+                actualizaciones más interesantes y ofertas.
               </p>
               <div className="contact">
                 <form id="myForm" className="contactform">
@@ -59,7 +59,7 @@ export default function Footer() {
                         <input
                           type="email"
                           name="user_email"
-                          placeholder="YOUR EMAIL"
+                          placeholder="CORREO"
                           required
                           style={{ flexGrow: 1, marginRight: "10px" }}
                         />
@@ -73,7 +73,7 @@ export default function Footer() {
                               width: "100%",
                             }}
                           >
-                            <span className="button-text">Subscribe</span>
+                            <span className="button-text">Suscribirse</span>
                             <span className="button-icon fa fa-send"></span>
                           </button>
                         </div>
@@ -93,15 +93,15 @@ export default function Footer() {
               mr: 15,
             }}
           >
-            <h3 className="text-uppercase mb-0 text-start ">Explore</h3>
+            <h3 className="text-uppercase mb-0 text-start ">Explorar</h3>
             <Link
               color="text.secondary"
               href="/about"
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              About us
+              Sobre nosotros
             </Link>
-            
+
             <Link
               color="text.secondary"
               href="/contact"
@@ -122,8 +122,11 @@ export default function Footer() {
           }}
         >
           <div>
-            <Link href="/privacy" style={{ color: "grey", fontSize: "0.875rem" }}>
-              Privacy Policy
+            <Link
+              href="/privacy"
+              style={{ color: "grey", fontSize: "0.875rem" }}
+            >
+              Política de Privacidad
             </Link>
             <span
               style={{ display: "inline", margin: "0 0.5rem", opacity: 0.5 }}
@@ -131,7 +134,7 @@ export default function Footer() {
               &nbsp;•&nbsp;
             </span>
             <Link href="/terms" style={{ color: "grey", fontSize: "0.875rem" }}>
-              Terms of Service
+              Términos de Servicio
             </Link>
             <p
               style={{ color: "grey", fontSize: "0.875rem", marginTop: "1rem" }}
@@ -140,7 +143,7 @@ export default function Footer() {
               <a href="https://multisoft.com/" style={{ color: "grey" }}>
                 Multisoft
               </a>
-              &nbsp;2024
+              &nbsp;2025
             </p>
           </div>
 

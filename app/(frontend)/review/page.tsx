@@ -12,9 +12,9 @@ const Reviews = () => {
           data-aos-duration="1200"
         >
           <h1>
-            <span>reviews</span>
+            <span>Reseñas</span>
           </h1>
-          <span className="title-bg">reviews</span>
+          <span className="title-bg">reseñas</span>
         </div>
         <Box sx={{ flexGrow: 1 }}>
           <div className="container">

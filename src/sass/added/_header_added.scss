@@ -1,0 +1,96 @@
+.navbar-toggler {
+  border: none;
+  padding: 0px;
+  line-height: 0px;
+  @media only screen and (max-width: 575px) {
+    margin: 0px;
+  }
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  span {
+    transform: translateY(0px);
+  }
+  .icon-bar {
+    width: 35px;
+    height: 2px;
+    background-color: white;
+    // background-color: $secondary-color;
+    margin: 0px;
+    display: block;
+    transition: all 0.3s;
+    @media only screen and (max-width: 575px) {
+      width: 30px;
+    }
+  }
+  .middle-bar {
+    margin: 8px 0px;
+    opacity: 1;
+  }
+}
+
+.toggle-active {
+  .top-bar {
+    transform: rotate(-45deg) translate(-9px, 5px);
+    background: white;
+    // background: $secondary-color;
+  }
+  .middle-bar {
+    opacity: 0;
+  }
+  .bottom-bar {
+    transform: rotate(45deg) translate(-9px, -5px);
+    background: white;
+    // background: $secondary-color;
+  }
+}
+
+@media screen and (min-width: 993px) {
+  .navbar-toggler,
+  .cs-munu_dropdown_toggle {
+    display: none;
+  }
+}
+
+.navbar-toggler {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 27px;
+  right: 30px;
+}
+
+// ???
+.cs_site_header.cs_style_1 .navbar-toggler {
+  top: 50%;
+  right: 0px;
+  margin-top: -11px;
+}
+
+.dashboard_avatar {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  @media screen and (min-width: 993px) {
+    top: 22px;
+    right: -5px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs_sticky_header {
+    position: fixed !important;
+    top: -110px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    background-color: #000;
+
+    top: 0 !important;
+    opacity: 1;
+    visibility: visible;
+  }
+}

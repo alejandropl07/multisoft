@@ -154,7 +154,7 @@ export default function Footer() {
             direction="row"
             spacing={1}
             useFlexGap
-            sx={{ justifyContent: "left", color: "#ffc107", mr: 10 }}
+            sx={{ justifyContent: "left", color: "#286bce", mr: 10 }}
           >
             <IconButton
               color="inherit"

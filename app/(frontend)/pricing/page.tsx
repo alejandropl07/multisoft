@@ -143,8 +143,8 @@ export default function Pricing() {
         source: "zipcodes",
         "source-layer": "cb_2018_us_zcta510_500k-8it2u9",
         paint: {
-          "fill-outline-color": "#ffb400", //#ffb400
-          "fill-color": "#ffb400",
+          "fill-outline-color": "#286bce", //#286bce
+          "fill-color": "#286bce",
           "fill-opacity": 0.5,
         },
         filter: ["in", "ZCTA5CE10", ""],

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
@@ -9,48 +9,52 @@ const Contact = () => {
 
   const sendEmail = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    emailjs
-      .sendForm(
-        "service_50cbehe",
-        "template_ugoztxr",
-        form.current ? form.current : "",
-        "user_vYmDSd9PwIuRXUQEDjYwN"
-      )
-      .then(
-        (result) => {
-          console.log(result);
-          toast.success("Message Sent Successfully!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          const form = document.getElementById(
-            "myForm"
-          ) as HTMLFormElement | null;
+    if (form.current) {
+      const formData = new FormData(form.current);
+      emailjs.init("5ZsvV9aol9wudKkHd");
+      emailjs
+        .send("service_zfyczxh", "template_9eybwja", {
+          subject: formData.get("subject"),
+          from_name: formData.get("name"),
+          message: formData.get("message"),
+          from_email: formData.get("user_email"),
+        })
+        .then(
+          (result) => {
+            console.log(result);
+            toast.success("Message Sent Successfully!", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            const form = document.getElementById(
+              "myForm"
+            ) as HTMLFormElement | null;
 
-          if (form) {
-            form.reset();
-          } else {
-            console.error("Formulario no encontrado");
+            if (form) {
+              form.reset();
+            } else {
+              console.error("Formulario no encontrado");
+            }
+          },
+          (error) => {
+            console.log(error);
+            toast.error("Ops Message Not Sent!", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           }
-        },
-        (error) => {
-          console.log(error)
-          toast.error("Ops Message Not Sent!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      );
+        );
+    }
   };
 
   return (
@@ -78,12 +82,7 @@ const Contact = () => {
 
           <div className="col-12 col-md-12">
             <div className="form-group">
-              <input
-                type="text"
-                name="subject"
-                placeholder="ASUNTO"
-                required
-              />
+              <input type="text" name="subject" placeholder="ASUNTO" required />
             </div>
           </div>
           {/* End .col */}

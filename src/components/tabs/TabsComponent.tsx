@@ -45,6 +45,11 @@ function TabsComponent() {
       onClick: () => handleMenuClick("contact"),
     },
     {
+      icon: "fa-comments",
+      menuName: "Blog",
+      onClick: () => handleMenuClick("blog"),
+    },
+    {
       icon: "fa-user",
       menuName: "Login",
       onClick: () => handleMenuClick("login"),

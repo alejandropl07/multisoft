@@ -93,7 +93,7 @@ const Blog = () => {
                         <div className="meta open-sans-font">
                           <span>
                             <i className="fa fa-user"></i>{" "}
-                            {singleData.commentor}
+                            {singleData?.commentor}
                           </span>
                           <span className="date">
                             <i className="fa fa-calendar"></i> {singleData.date}

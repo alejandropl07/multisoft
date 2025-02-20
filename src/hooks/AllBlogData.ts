@@ -106,12 +106,36 @@ const AllBlogData = () => {
     },
   ];
 
-  const [singleData, setSingleData] = useState({});
+  const [singleData, setSingleData] = useState({
+    id: 0,
+    img: 'path/to/default.jpg',
+    title: '',
+    commentor: '',
+    date: '',
+    tag: '',
+    description1: '',
+    description2: '',
+    description3: '',
+    description4: ''
+  });
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBlogsData = (id:any) => {
     const find = blogsData.find((item) => item?.id === id);
-    setSingleData(find);
+    if (find) {
+      setSingleData({
+        id: find.id,
+        img: find.img.src || '', // Asegúrate de convertir StaticImageData a string
+        title: find.title,
+        commentor: find.commentor,
+        date: find.date,
+        tag: find.tag,
+        description1: find.description1,
+        description2: find.description2,
+        description3: find.description3,
+        description4: find.description4
+      });
+    }
     setIsOpen(true);
   };
 

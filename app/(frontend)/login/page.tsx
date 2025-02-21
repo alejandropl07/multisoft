@@ -9,10 +9,11 @@ import Login from "@/src/components/Login";
 export default function LoginPage() {
   const { showRegister } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
+
   const handleLogin = () => {
     showRegister ? dispatch(showLoginAction()) : dispatch(showRegisterAction());
   };
-  
+
   return (
     <div className="contact">
       <div

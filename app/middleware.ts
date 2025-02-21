@@ -1,10 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
-export function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  if (url.pathname === "/") {
-    url.pathname = "/home";
-    return NextResponse.redirect(url);
+const secret = process.env.JWT_SECRET || 'your_jwt_secret';
+
+export function middleware(req: NextRequest) {
+  const token = req.cookies.get('token')?.value;
+
+  // Define las rutas públicas
+  const publicRoutes = ['/login'];
+
+  // Permite el acceso a las rutas públicas sin autenticación
+  if (publicRoutes.includes(req.nextUrl.pathname)) {
+    return NextResponse.next();
   }
-  return NextResponse.next();
+
+  // Verifica el token para las rutas privadas
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
+  try {
+    jwt.verify(token, secret);
+    return NextResponse.next();
+  } catch (error) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
 }
+
+export const config = {
+  matcher: ['/private-route1', '/private-route2', '/private/*'], // Define tus rutas privadas
+};

@@ -5,45 +5,14 @@ import { useAppSelector, useAppDispatch } from "@/src/redux/hooks";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginSuccess } from "@/src/redux/features/auth/authSlice";
+import Cookies from "js-cookie";
 
-export default function Login({
-  showTitle = true,
-  isStripeCheckout = false,
-  stripeCheckOutPaymentData = null,
-}) {
+export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
   const router = useRouter();
   const { showRegister } = useAppSelector((state) => state.ui);
-  const dispatch = useAppDispatch();
-
-  const [emailSent, setEmailSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const sendMagicLink = async () => {
-    console.log("first")
-    setSending(true);
-    let redirectUrl = `${window.location.protocol}//${window.location.host}/redirect?email=${email}`;
-    localStorage.setItem("emailForSignIn", email);
-
-    //check if the user is signing up for a stripe checkout
-    if (isStripeCheckout && stripeCheckOutPaymentData) {
-      redirectUrl = `${redirectUrl}&stripeCheckout=true&stripeCheckoutPaymentData=${encodeURI(
-        JSON.stringify(stripeCheckOutPaymentData)
-      )}`;
-    }
-
-    const payload = {
-      email: email,
-      url: redirectUrl,
-    };
-
-    console.log(payload);
-
-   
-  };
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -70,8 +39,24 @@ export default function Login({
       });
       return;
     }
-    let user;
-    
+    let route = "login";
+    showRegister ? (route = "signup") : (route = "login");
+    console.log(route)
+    const response = await fetch(`/api/auth/${route}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    console.log(response)
+
+    const data = await response.json();
+
+    if (response.ok) {
+      Cookies.set("token", data.token, { expires: 1 }); // Almacena el token en cookies
+      router.push("/private-route1"); // Redirige a una ruta privada
+    }
   };
 
   return (
@@ -121,7 +106,7 @@ export default function Login({
           ) : null}
 
           <div className="col-12">
-            <button type="submit" className="button" onClick={sendMagicLink}>
+            <button type="submit" className="button" onClick={handleSubmit}>
               <span className="button-text">
                 {showRegister ? "REGISTRO" : "LOGIN"}
               </span>

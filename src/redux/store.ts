@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import uiSlice from "./features/ui/uiSlice";
 import authSlice from "./features/auth/authSlice";
-import leadSlice from "./features/lead/leadSlice";
+import blogSlice from "./features/blog/blogSlice";
 
 const rootReducer = combineReducers({
   ui: uiSlice,
   auth: authSlice,
-  lead: leadSlice,
+  blog: blogSlice,
 });
 
 export const store = configureStore({

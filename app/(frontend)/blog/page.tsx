@@ -1,20 +1,64 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import cancelImg from "../../../public/assets/img/cancel.svg";
 import blogQuote from "../../../public/assets/img/blog/quote.svg";
 import AllBlogData from "../../../src/hooks/AllBlogData";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { fetchBlog } from "@/src/redux/features/blog/blogSlice";
+import path from "path";
+
+interface Blog {
+  BlogKey: number;
+  Title: string;
+  Description: string;
+  Image_URL: string;
+}
 
 const Blog = () => {
   const { singleData, isOpen, setIsOpen, blogsData, handleBlogsData } =
     AllBlogData();
-  const handleModle = (id: any) => {
-    handleBlogsData(id);
+
+  // const [blogs, setBlogs] = useState<Blog[]>([]);
+  // const handleModle = (id: any) => {
+  //   handleBlogsData(id);
+  // };
+  const { blogs } = useAppSelector((state) => state.blog);
+  const dispatch = useAppDispatch();
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch("/api/blog");
+      if (!response.ok) {
+        throw new Error("Error al obtener los blogs");
+      }
+      const data = await response.json();
+      dispatch(fetchBlog(data));
+      return data;
+    } catch (error) {
+      console.error("Error al obtener los blogs:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
   };
+
+  const uploadsDir = path.join(process.cwd(), 'uploads');
+  console.log(uploadsDir)
+
   useEffect(() => {
     Modal.setAppElement("#modal");
+
+    const getBlogs = async () => {
+      try {
+        const result = await fetchBlogs();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getBlogs();
   }, []);
+
   return (
     <>
       <div
@@ -31,38 +75,40 @@ const Blog = () => {
         {/*  Articles Starts  */}
         <div className="row pb-50">
           <div className="row" id="modal">
-            {blogsData.map((item: any) => (
+            {blogs.map((item: any) => (
               <div
-                key={item.id}
+                key={item.BlogKey}
                 className="col-12 col-md-6 col-lg-6 col-xl-4 mb-30"
               >
                 <article
                   className="post-container"
-                  onClick={() => handleModle(item?.id)}
+                  // onClick={() => handleModle(item?.blogKey)}
                 >
                   <div className="post-thumb">
                     <div className="d-block position-relative overflow-hidden">
                       <Image
-                        src={item?.img}
+                        src={`/${item?.Image_URL}`}
                         className="img-fluid"
-                        alt="item.title"
+                        alt="image"
+                        width={895}
+                        height={552}
                       />
                     </div>
                   </div>
                   {/* End .thumb */}
                   <div className="post-content">
                     <div className="entry-header">
-                      <h3>{item?.title}</h3>
+                      <h3>{item?.Title}</h3>
                     </div>
                     <div className="entry-content open-sans-font">
-                      <p>{item?.description1.slice(0, 100)}</p>
+                      <p>{item?.Description?.slice(0, 100)}</p>
                     </div>
                   </div>
                   {/* End .post-content */}
                 </article>
 
                 {/* Start ModalOneBlogContent */}
-                <Modal
+                {/* <Modal
                   isOpen={isOpen}
                   onRequestClose={() => setIsOpen(false)}
                   contentLabel="My dialog"
@@ -77,10 +123,8 @@ const Blog = () => {
                     >
                       <Image src={cancelImg} alt="close icon" />
                     </button>
-                    {/* End close icon */}
 
                     <div className="box_inner blog-post">
-                      {/* Article Starts */}
                       <article>
                         <div className="title-section text-start text-sm-center">
                           <h1>
@@ -88,7 +132,6 @@ const Blog = () => {
                           </h1>
                           <span className="title-bg">posts</span>
                         </div>
-                        {/* Meta Starts */}
 
                         <div className="meta open-sans-font">
                           <span>
@@ -102,8 +145,6 @@ const Blog = () => {
                             <i className="fa fa-tags"></i> {singleData.tag}
                           </span>
                         </div>
-                        {/* Meta Ends */}
-                        {/* Article Content Starts */}
 
                         <h1>{singleData?.title}</h1>
                         <Image
@@ -122,13 +163,10 @@ const Blog = () => {
                           <p>{singleData?.description3}</p>
                           <p>{singleData?.description4}</p>
                         </div>
-                        {/* Article Content Ends */}
                       </article>
-                      {/* Article Ends */}
                     </div>
                   </div>
-                </Modal>
-                {/* End  ModalOneBlogContent */}
+                </Modal> */}
               </div>
             ))}
           </div>

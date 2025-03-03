@@ -55,7 +55,7 @@ export default function Login() {
 
     if (response.ok) {
       Cookies.set("token", data.token, { expires: 1 }); // Almacena el token en cookies
-      router.push("/private-route1"); // Redirige a una ruta privada
+      router.push("/blog-admin"); // Redirige a una ruta privada
     }
   };
 

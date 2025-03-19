@@ -28,5 +28,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/blog-admin', '/private-route2', '/private/*'], // Define tus rutas privadas
+  matcher: ['/blog-admin', '/about-admin', '/private/*'], // Define tus rutas privadas
 };

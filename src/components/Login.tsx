@@ -79,7 +79,7 @@ export default function Login() {
           <div className="col-12 col-md-12">
             <div className="form-group">
               <input
-                type="text"
+                type="password"
                 name="password"
                 value={password}
                 onChange={handlePasswordChange}
@@ -94,7 +94,7 @@ export default function Login() {
             <div className="col-12 col-md-12">
               <div className="form-group">
                 <input
-                  type="text"
+                  type="password"
                   name="repeatPassword"
                   value={repeatPassword}
                   onChange={handleRepeatPasswordChange}

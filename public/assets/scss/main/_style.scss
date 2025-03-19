@@ -186,6 +186,9 @@ body.light .portfolio .slideshow ul > li:after {
 }
 
 body.light .contact .contactform input[type="text"],
+body.light .contact .contactform input[type="password"],
+body.light .contact .contactform input[type="date"],
+body.light .contact .contactform input[type="file"],
 body.light .contact .contactform input[type="email"],
 body.light .contact .contactform textarea {
   background-color: #fff;
@@ -193,6 +196,9 @@ body.light .contact .contactform textarea {
   color: #666;
 }
 body.light .contact .contactform input[type="text"]:focus,
+body.light .contact .contactform input[type="password"]:focus,
+body.light .contact .contactform input[type="date"]:focus,
+body.light .contact .contactform input[type="file"]:focus,
 body.light .contact .contactform input[type="email"]:focus,
 body.light .contact .contactform textarea:focus {
   background-color: #fff;
@@ -1132,7 +1138,9 @@ body.light .contact .custom-span-contact a {
   border-radius: 50%;
 }
 /* Form */
+.contact .contactform input[type="password"],
 .contact .contactform input[type="text"],
+.contact .contactform input[type="file"],
 .contact .contactform input[type="email"] {
   border: 1px solid #111;
   width: 100%;
@@ -1143,6 +1151,19 @@ body.light .contact .custom-span-contact a {
   outline: none !important;
   transition: 0.3s;
 }
+
+.contact .contactform input[type="date"]
+{
+  border: 1px solid #111;
+  width: 90%;
+  background: #252525;
+  color: #fff;
+  padding: 11px 26px;
+  border-radius: 30px;
+  outline: none !important;
+  transition: 0.3s;
+}
+
 .contact .contactform .form-group {
   margin-bottom: 30px;
 }

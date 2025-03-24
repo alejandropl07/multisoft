@@ -1,45 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getConnection } from "../auth/db";
-// import upload from "@/src/lib/upload";
-import { pipeline } from "stream";
-import { promisify } from "util";
-import fs from "fs";
-// import path from "path";
 import { MAX, NVarChar } from "mssql";
-import path from "path";
-
-const pump = promisify(pipeline);
-
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
-  const date = formData.get("date") as string;
-  const writtenBy = formData.get("writtenBy") as string;
-  const file = formData.get("image") as Blob | any;
-
-  const nameImage = `${Date.now()}_${file.name}`;
-  const image_url = `uploads/${nameImage}`;
-  const image_url_public = `public/uploads/${nameImage}`;
-
-  await pump(file.stream(), fs.createWriteStream(image_url_public));
 
   try {
     const pool = await getConnection();
     const result = await pool?.request();
     const query =
-      "INSERT INTO Blogs (title, description, image_url, date, writtenBy) VALUES (@title, @description, @image_url, @date, @writtenBy)";
+      "INSERT INTO FAQ (title, description) VALUES (@title, @description)";
     result?.input("title", NVarChar(50), title);
     result?.input("description", NVarChar(MAX), description);
-    result?.input("image_url", NVarChar(MAX), image_url);
-    result?.input("date", NVarChar(MAX), date);
-    result?.input("writtenBy", NVarChar(50), writtenBy);
     await result?.query(query);
 
     return NextResponse.json({ message: "Imagen cargada exitosamente" });
@@ -55,7 +29,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const pool = await getConnection();
-    const query = "SELECT * FROM Blogs";
+    const query = "SELECT * FROM FAQ";
     const result = await pool?.query(query);
 
     return NextResponse.json(result?.recordset);

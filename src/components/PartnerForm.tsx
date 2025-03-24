@@ -3,27 +3,21 @@ import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogForm = () => {
+const PartnerForm = () => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [writtenBy, setWrittenBy] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("writtenBy", writtenBy);
-    formData.append("date", date);
+    formData.append("address", address);
     if (image) {
       formData.append("image", image);
     }
 
-    const response = await fetch("/api/blog", {
+    const response = await fetch("/api/partner", {
       method: "POST",
       body: formData,
     });
@@ -67,59 +61,11 @@ const BlogForm = () => {
                 name="title"
                 placeholder="TITULO"
                 required
-                value={title}
+                value={address}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setTitle(e.target.value)
+                  setAddress(e.target.value)
                 }
               />
-            </div>
-          </div>
-          {/* End .col */}
-
-          <div className="col-12 col-md-12">
-            <div className="form-group">
-              <input
-                type="text"
-                name="writtenBy"
-                placeholder="ESCRITO POR"
-                required
-                value={writtenBy}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setWrittenBy(e.target.value)
-                }
-              />
-            </div>
-          </div>
-          {/* End .col */}
-
-
-          <div className="col-12 col-md-12">
-            <div className="form-group">
-              <input
-                type="date"
-                name="date"
-                placeholder="FECHA"
-                required
-                value={date}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setDate(e.target.value)
-                }
-              />
-            </div>
-          </div>
-          {/* End .col */}
-
-          <div className="col-12">
-            <div className="form-group">
-              <textarea
-                name="description"
-                placeholder="DESCRIPCION"
-                required
-                value={description}
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                  setDescription(e.target.value)
-                }
-              ></textarea>
             </div>
           </div>
           {/* End .col */}
@@ -152,4 +98,4 @@ const BlogForm = () => {
   );
 };
 
-export default BlogForm;
+export default PartnerForm;

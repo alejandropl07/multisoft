@@ -3,27 +3,19 @@ import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogForm = () => {
+const FAQForm = () => {
   const form = useRef<HTMLFormElement>(null);
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [writtenBy, setWrittenBy] = useState<string>("");
-  const [date, setDate] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("writtenBy", writtenBy);
-    formData.append("date", date);
-    if (image) {
-      formData.append("image", image);
-    }
 
-    const response = await fetch("/api/blog", {
+    const response = await fetch("/api/faq", {
       method: "POST",
       body: formData,
     });
@@ -76,39 +68,6 @@ const BlogForm = () => {
           </div>
           {/* End .col */}
 
-          <div className="col-12 col-md-12">
-            <div className="form-group">
-              <input
-                type="text"
-                name="writtenBy"
-                placeholder="ESCRITO POR"
-                required
-                value={writtenBy}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setWrittenBy(e.target.value)
-                }
-              />
-            </div>
-          </div>
-          {/* End .col */}
-
-
-          <div className="col-12 col-md-12">
-            <div className="form-group">
-              <input
-                type="date"
-                name="date"
-                placeholder="FECHA"
-                required
-                value={date}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setDate(e.target.value)
-                }
-              />
-            </div>
-          </div>
-          {/* End .col */}
-
           <div className="col-12">
             <div className="form-group">
               <textarea
@@ -120,21 +79,6 @@ const BlogForm = () => {
                   setDescription(e.target.value)
                 }
               ></textarea>
-            </div>
-          </div>
-          {/* End .col */}
-
-          <div className="col-12 col-md-12">
-            <div className="form-group">
-              <input
-                type="file"
-                name="image"
-                placeholder="IMAGEN"
-                required
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setImage(e.target.files ? e.target.files[0] : null)
-                }
-              />
             </div>
           </div>
           {/* End .col */}
@@ -152,4 +96,4 @@ const BlogForm = () => {
   );
 };
 
-export default BlogForm;
+export default FAQForm;

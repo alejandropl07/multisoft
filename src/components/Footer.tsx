@@ -8,8 +8,48 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/X";
 import Link from "next/link";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Footer() {
+  const form = useRef<HTMLFormElement>(null);
+
+  const [email, setEmail] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("email", email);
+
+    const response = await fetch("/api/bulletin", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      toast.success("Message Sent Successfully!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error("Ops Message Not Sent!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   return (
     <React.Fragment>
       <Divider />
@@ -49,7 +89,12 @@ export default function Footer() {
                 actualizaciones más interesantes y ofertas.
               </p>
               <div className="contact">
-                <form id="myForm" className="contactform">
+                <form
+                  id="myForm"
+                  className="contactform"
+                  ref={form}
+                  onSubmit={handleSubmit}
+                >
                   <div className="col">
                     <div className="col-12">
                       <div
@@ -58,9 +103,13 @@ export default function Footer() {
                       >
                         <input
                           type="email"
-                          name="user_email"
+                          name="email"
                           placeholder="CORREO"
+                          value={email}
                           required
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setEmail(e.target.value)
+                          }
                           style={{ flexGrow: 1, marginRight: "10px" }}
                         />
                         <div>

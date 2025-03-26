@@ -77,7 +77,7 @@ const AboutForm = () => {
                 name="vision"
                 placeholder="VISIÓN"
                 required
-                value={mission}
+                value={vision}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setVision(e.target.value)
                 }

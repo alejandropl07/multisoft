@@ -57,7 +57,7 @@ const FAQForm = () => {
               <input
                 type="text"
                 name="title"
-                placeholder="TITULO"
+                placeholder="PREGUNTA"
                 required
                 value={title}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -72,7 +72,7 @@ const FAQForm = () => {
             <div className="form-group">
               <textarea
                 name="description"
-                placeholder="DESCRIPCION"
+                placeholder="RESPUESTA"
                 required
                 value={description}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>

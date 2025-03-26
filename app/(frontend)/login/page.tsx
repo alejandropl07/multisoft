@@ -18,15 +18,17 @@ export default function LoginPage() {
     <div className="contact">
       <div
         className="title-section text-start text-sm-center"
-        data-aos="fade-up"
-        data-aos-duration="1200"
+        // data-aos="fade-up"
+        // data-aos-duration="1200"
       >
         <h1>
           Crear <span>cuenta</span>
         </h1>
         <span className="title-bg">login</span>
       </div>
-      <div className="container" data-aos="fade-up" data-aos-duration="1200">
+      <div className="container"
+      //  data-aos="fade-up" data-aos-duration="1200"
+       >
         <div className="row">
           {/*  Left Side Starts */}
           <div className="col-12 col-lg-4">

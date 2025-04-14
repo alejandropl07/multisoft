@@ -1,5 +1,11 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useRef, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,11 +24,15 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
   const [title, setTitle] = useState<string>(initialData?.title || "");
-  const [description, setDescription] = useState<string>(initialData?.description || "");
-  const [writtenBy, setWrittenBy] = useState<string>(initialData?.writtenBy || "");
+  const [description, setDescription] = useState<string>(
+    initialData?.description || ""
+  );
+  const [writtenBy, setWrittenBy] = useState<string>(
+    initialData?.writtenBy || ""
+  );
   const [date, setDate] = useState<string>(initialData?.date || "");
   const [image, setImage] = useState<File | null>(null);
- 
+
   useEffect(() => {
     if (initialData?.imageUrl) {
       // Si existe una imagen URL, podrías usarla como referencia visual en el formulario
@@ -43,28 +53,32 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
 
     const method = initialData ? "PUT" : "POST"; // Determina si es creación o edición
     const endpoint = initialData ? `/api/blog/${initialData.id}` : "/api/blog";
+    console.log(initialData);
 
-    const response = await fetch(endpoint, {
-      method: method,
-      body: formData,
-    });
+    try {
+      const response = await fetch(endpoint, {
+        method: method,
+        body: formData,
+      });
 
-    if (response.ok) {
-      toast.success(
-        initialData
-          ? "Blog actualizado exitosamente!"
-          : "Blog creado exitosamente!",
-        {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
-    } else {
+      if (response.ok) {
+        toast.success(
+          initialData
+            ? "Blog actualizado exitosamente!"
+            : "Blog creado exitosamente!",
+          {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
       toast.error(
         initialData
           ? "Error al actualizar el blog!"
@@ -178,4 +192,3 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
 };
 
 export default BlogForm;
-

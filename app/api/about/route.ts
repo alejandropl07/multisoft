@@ -36,15 +36,16 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const pool = await getConnection();
-    const query = "SELECT * FROM About";
+    const query = "SELECT TOP 1 * FROM About ORDER BY AboutKey DESC"; // Reemplaza 'id' según el orden deseado
     const result = await pool?.query(query);
 
-    return NextResponse.json(result?.recordset);
+    return NextResponse.json(result?.recordset[0]); // Devuelve el último elemento
   } catch (err) {
-    console.error("Error al obtener datos de la base de datos:", err);
+    console.error("Error al obtener el último elemento:", err);
     return NextResponse.json(
-      { error: "Error al obtener datos de la base de datos" },
+      { error: "Error al obtener el último elemento" },
       { status: 500 }
     );
   }
 }
+

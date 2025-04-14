@@ -41,3 +41,26 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { FaqKey, Title, Description } = await req.json(); // Supongamos que se envían los campos a actualizar
+    const pool = await getConnection();
+    const query = `
+      UPDATE FAQ
+      SET title = @title, content = @content
+      WHERE FaqKey = @FaqKey
+    `;
+
+    const result = await pool?.query(query);
+
+    return NextResponse.json({ message: `Registro con ID ${FaqKey} actualizado exitosamente.` });
+  } catch (err) {
+    console.error("Error al actualizar el registro:", err);
+    return NextResponse.json(
+      { error: "Error al actualizar el registro de la base de datos" },
+      { status: 500 }
+    );
+  }
+}

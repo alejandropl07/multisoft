@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,16 +7,47 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { fetchFaq } from "../redux/features/faq/faqSlice";
 
 export default function FAQ() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
   const { isDark } = useAppSelector((state) => state.ui);
+
+  const dispatch = useAppDispatch();
+  const { faqs } = useAppSelector((state) => state.faq);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+  const fetchFAQS = async () => {
+    try {
+      const response = await fetch("/api/faq");
+      if (!response.ok) {
+        throw new Error("Error al obtener las preguntas frecuentes");
+      }
+      const data = await response.json();
+      dispatch(fetchFaq(data));
+      return data;
+    } catch (error) {
+      console.error("Error al obtener las preguntas frecuentes:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
+  };
+
+  useEffect(() => {
+    const getFaqs = async () => {
+      try {
+        const result = await fetchFAQS();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFaqs();
+  }, []);
 
   return (
     <div className="contact">
@@ -36,69 +67,38 @@ export default function FAQ() {
         <h1 className="text-uppercase poppins-font">Preguntas frecuentes</h1>
 
         <Box sx={{ width: "100%" }}>
-          <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-            sx={{
-              backgroundColor: isDark ? "#111111" : "white",
-              color: isDark ? "white" : "gray",
-            }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1d-content"
-              id="panel1d-header"
+          {faqs.map((faq: any) => (
+            <Accordion
+              key={faq.FaqKey}
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}
+              sx={{
+                backgroundColor: isDark ? "#111111" : "white",
+                color: isDark ? "white" : "gray",
+              }}
             >
-              <Typography component="h3" variant="subtitle2">
-                Qué es un ERP?
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography
-                variant="body2"
-                gutterBottom
-                sx={{ maxWidth: { sm: "100%", md: "70%" } }}
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1d-content"
+                id="panel1d-header"
+                key={faq.FaqKey}
               >
-                Enterprise Resource Planning (ERP) es un tipo de software que
-                las organizaciones utilizan para gestionar las actividades
-                empresariales diarias, como la contabilidad, el
-                aprovisionamiento, la gestión de proyectos, la gestión de
-                riesgos y el cumplimiento, y las operaciones de la cadena de
-                suministro.
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-          {/* <Accordion
-            expanded={expanded === "panel2"}
-            onChange={handleChange("panel2")}
-            sx={{
-              backgroundColor: isDark ? "#111111" : "white",
-              color: isDark ? "white" : "gray",
-            }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2d-content"
-              id="panel2d-header"
-            >
-              <Typography component="h3" variant="subtitle2">
-                What is your pricing and specials?
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography
-                variant="body2"
-                gutterBottom
-                sx={{ maxWidth: { sm: "100%", md: "70%" } }}
-              >
-                Our starting price for most zip codes is $1000, which is enough
-                to make sure our ad campaigns work effectively. We also offer
-                promotions for longer commitments, such as 3 months free with a
-                6-month subscription. We're happy to discuss your specific needs
-                and provide a customized quote.
-              </Typography>
-            </AccordionDetails>
-          </Accordion> */}
+                <Typography component="h3" variant="subtitle2" key={faq.FaqKey}>
+                  {faq?.Title}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails key={faq.FaqKey}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  sx={{ maxWidth: { sm: "100%", md: "70%" } }}
+                  key={faq.FaqKey}
+                >
+                  {faq?.Description}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))}
         </Box>
       </Container>
     </div>

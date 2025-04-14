@@ -10,12 +10,6 @@ import path from "path";
 
 const pump = promisify(pipeline);
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
-
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const title = formData.get("title") as string;
@@ -63,6 +57,29 @@ export async function GET(req: NextRequest) {
     console.error("Error al obtener datos de la base de datos:", err);
     return NextResponse.json(
       { error: "Error al obtener datos de la base de datos" },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { BlogKey, title, content } = await req.json(); // Supongamos que se envían los campos a actualizar
+    const pool = await getConnection();
+    const query = `
+      UPDATE Blogs
+      SET title = @title, content = @content
+      WHERE BlogKey = @BlogKey
+    `;
+
+    const result = await pool?.query(query);
+
+    return NextResponse.json({ message: `Registro con ID ${BlogKey} actualizado exitosamente.` });
+  } catch (err) {
+    console.error("Error al actualizar el registro:", err);
+    return NextResponse.json(
+      { error: "Error al actualizar el registro de la base de datos" },
       { status: 500 }
     );
   }

@@ -1,49 +1,71 @@
 "use client";
+
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogForm = () => {
+interface BlogFormProps {
+  initialData?: {
+    ValueKey: string;
+    title: string;
+    description: string;
+    imageUrl?: string; // URL de la imagen existente (opcional)
+  } | null;
+}
+
+const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  // Usa los datos iniciales si están presentes, o valores vacíos si no lo están
+  const [title, setTitle] = useState<string>(initialData?.title || "");
+  const [description, setDescription] = useState<string>(initialData?.description || "");
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Determina si se trata de creación o edición
+    const method = initialData ? "PUT" : "POST";
+    const endpoint = initialData ? `/api/blog/${initialData.ValueKey}` : "/api/blog";
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     if (image) {
-      formData.append("image", image);
+      formData.append("image", image); // Nueva imagen cargada
     }
 
-    const response = await fetch("/api/values", {
-      method: "POST",
+    const response = await fetch(endpoint, {
+      method: method,
       body: formData,
     });
 
     if (response.ok) {
-      toast.success("Message Sent Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        initialData ? "Blog actualizado exitosamente!" : "Blog creado exitosamente!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else {
-      toast.error("Ops Message Not Sent!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        initialData ? "Error al actualizar el blog!" : "Error al crear el blog!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
 
@@ -93,18 +115,27 @@ const BlogForm = () => {
                 type="file"
                 name="image"
                 placeholder="IMAGEN"
-                required
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setImage(e.target.files ? e.target.files[0] : null)
                 }
               />
+              {initialData?.imageUrl && (
+                <p>
+                  Imagen actual:{" "}
+                  <a href={initialData.imageUrl} target="_blank" rel="noopener noreferrer">
+                    Ver imagen
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           {/* End .col */}
 
           <div className="col-12">
             <button type="submit" className="button">
-              <span className="button-text">Guardar</span>
+              <span className="button-text">
+                {initialData ? "Actualizar" : "Guardar"}
+              </span>
               <span className="button-icon fa fa-send"></span>
             </button>
           </div>
@@ -115,4 +146,4 @@ const BlogForm = () => {
   );
 };
 
-export default BlogForm;
+export default ValueForm;

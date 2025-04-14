@@ -10,6 +10,9 @@
     "prefer-const": "off",
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-wrapper-object-types" : "off",
+    "react/display-name": "off",
+    "@typescript-eslint/no-empty-object-type": "off"
   }
 }

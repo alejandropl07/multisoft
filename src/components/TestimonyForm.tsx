@@ -1,49 +1,71 @@
 "use client";
+
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TestimonyForm = () => {
+interface TestimonyFormProps {
+  initialData?: {
+    TestimonyKey: string;
+    date: string;
+    comment: string;
+    imageUrl?: string; // URL de la imagen existente (opcional)
+  } | null;
+}
+
+const TestimonyForm: React.FC<TestimonyFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [date, setDate] = useState<string>("");
-  const [comment, setComment] = useState<string>("");
+  // Usa los datos iniciales si están presentes o valores vacíos si no lo están
+  const [date, setDate] = useState<string>(initialData?.date || "");
+  const [comment, setComment] = useState<string>(initialData?.comment || "");
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Determina si se trata de creación o edición
+    const method = initialData ? "PUT" : "POST";
+    const endpoint = initialData ? `/api/testimony/${initialData.TestimonyKey}` : "/api/testimony";
+
     const formData = new FormData();
     formData.append("date", date);
     formData.append("comment", comment);
     if (image) {
-      formData.append("image", image);
+      formData.append("image", image); // Nueva imagen cargada
     }
 
-    const response = await fetch("/api/testimony", {
-      method: "POST",
+    const response = await fetch(endpoint, {
+      method: method,
       body: formData,
     });
 
     if (response.ok) {
-      toast.success("Message Sent Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        initialData ? "Testimonio actualizado exitosamente!" : "Testimonio creado exitosamente!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else {
-      toast.error("Ops Message Not Sent!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        initialData ? "Error al actualizar el testimonio!" : "Error al crear el testimonio!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
 
@@ -93,18 +115,27 @@ const TestimonyForm = () => {
                 type="file"
                 name="image"
                 placeholder="IMAGEN"
-                required
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setImage(e.target.files ? e.target.files[0] : null)
                 }
               />
+              {initialData?.imageUrl && (
+                <p>
+                  Imagen actual:{" "}
+                  <a href={initialData.imageUrl} target="_blank" rel="noopener noreferrer">
+                    Ver imagen
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           {/* End .col */}
 
           <div className="col-12">
             <button type="submit" className="button">
-              <span className="button-text">Guardar</span>
+              <span className="button-text">
+                {initialData ? "Actualizar" : "Guardar"}
+              </span>
               <span className="button-icon fa fa-send"></span>
             </button>
           </div>
@@ -116,3 +147,4 @@ const TestimonyForm = () => {
 };
 
 export default TestimonyForm;
+

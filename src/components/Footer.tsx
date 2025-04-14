@@ -17,28 +17,44 @@ export default function Footer() {
 
   const [email, setEmail] = useState<string>("");
 
+  const validateEmail = (email: string): boolean => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("email", email);
-
-    const response = await fetch("/api/bulletin", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (response.ok) {
-      toast.success("Message Sent Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    if (validateEmail(email)) {
+      formData.append("email", email);
+      const response = await fetch("/api/bulletin", {
+        method: "POST",
+        body: formData,
       });
+
+      if (response.ok) {
+        toast.success("Message Sent Successfully!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.error("Ops Message Not Sent!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } else {
-      toast.error("Ops Message Not Sent!", {
+      toast.error("Invalid Email!", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

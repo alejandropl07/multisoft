@@ -1,0 +1,170 @@
+.container {
+    padding: 0;
+  }
+  
+  .table {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+      0 1px 3px 0 rgba(0, 0, 0, 0.12) !important;
+    border-radius: 6px;
+  }
+  
+  .container tr.p-highlight {
+    background: #e0f9ec !important;
+    color: #223934 !important;
+  }
+  
+  .container .selected-row {
+    background: #f3f5f5 !important;
+  }
+  
+  .container .p-checkbox-box.p-component.p-highlight {
+    background: #018746 !important;
+    border-color: #018746 !important;
+  }
+  
+  .container .p-checkbox-box:hover {
+    border-color: #018746 !important;
+  }
+  
+  .p-multiselect-filter-icon {
+    position: absolute !important;
+    float: left !important;
+    right: 90% !important;
+  }
+  
+  .p-dropdown-items-wrapper {
+    height: max-content !important;
+  }
+  
+  .p-dropdown-item:hover {
+    background-color: #ffffff !important;
+  }
+  
+  .p-multiselect-item:hover {
+    background-color: #ffffff !important;
+  }
+  
+  .p-checkbox-box {
+    border-color: #5d7670 !important;
+  }
+  
+  .container .p-dropdown {
+    border: none !important;
+  }
+  
+  .container .p-multiselect {
+    border: none !important;
+  }
+  
+  .container .p-dropdown .p-dropdown-label.p-placeholder {
+    color: #5d7670 !important;
+  }
+  
+  .container .p-multiselect .p-multiselect-label.p-placeholder {
+    color: #5d7670 !important;
+  }
+  
+  .header-details-sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.4em;
+    margin-top: 0;
+    margin-bottom: 0em;
+  }
+  
+  hr {
+    border-color: #e7ebea;
+  }
+  
+  .content-details-sidebar {
+    margin-top: -2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 0.5em;
+    align-items: center;
+  }
+  
+  .content-details-sidebar p:first-child {
+    color: #5d7670;
+  }
+  
+  .content-details-sidebar p:nth-child() {
+    color: #112a25;
+    margin-right: 25%;
+  }
+  
+  .download-invoice {
+    display: flex !important;
+    flex-direction: row !important;
+    text-decoration: none;
+    margin-top: -1.5em;  
+    margin-bottom: -1.5em;  
+    font-size: 14px;
+  }
+  
+  .footer-details {
+    padding-left: 2em;
+    border-top: 1px solid #d5d8da;
+  }
+  
+  .download-multiple {
+    display: flex;
+    justify-content: center;
+    background-color: #018746;
+    height: 3em;
+    align-items: center;
+  }
+  
+  .download-multiple-item {
+    margin-top: 1.2em;
+    margin-right: 0.5em;
+  }
+  
+  .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
+    display: none;
+  }
+  
+  .show-columns {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-invoices {
+    float: inline-end;
+    width: 20% !important;
+    height: 100% !important;
+  }
+  
+  .invoices-multiselect {
+    background-color: #ECEFEF !important;
+    height: 36px;
+  }
+  
+  .invoices-multiselect input {
+   margin-left: 10px;
+  }
+  
+  .invoices-dropdown {
+    background-color: #ECEFEF !important;
+    height: 36px;
+  }
+  
+  .invoices-dropdown:focus {
+    background-color: white !important;
+  }
+  
+  .invoices-dropdown:not(.p-disabled).p-focus {
+    box-shadow: 0 0 0 .1rem #018746;
+    background-color: white !important;
+  }
+  
+  .invoice-details-subtitle {
+    font-family: SF Pro Text;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+  }

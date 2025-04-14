@@ -1,9 +1,16 @@
+"use client"
 import { timelineContent } from "./timelineContent";
 import heroImgMobile from "@/public/assets/img/hero/img-mobile.png";
 import Image from "next/image";
 import { TimelineProps } from "@/src/interfaces/interfaces";
+import { fetchAbout } from "@/src/redux/features/about/aboutSlice";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { useEffect } from "react";
 
 const AboutPage = () => {
+  const dispatch = useAppDispatch();
+  const { abouts } = useAppSelector((state) => state.about);
+
   const chunkArray = (array: TimelineProps[], size: number) => {
     const result = [];
     for (let i = 0; i < array.length; i += size) {
@@ -12,6 +19,32 @@ const AboutPage = () => {
     return result;
   };
 
+  const fetchAbouts = async () => {
+    try {
+      const response = await fetch("/api/about");
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      const data = await response.json();
+      dispatch(fetchAbout(data));
+      return data;
+    } catch (error) {
+      console.error("Error al obtener los datos:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
+  };
+
+  useEffect(() => {
+    const getAbout = async () => {
+      try {
+        const result = await fetchAbouts();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getAbout();
+  }, []);
 
   const timelineChunks = chunkArray(timelineContent, 2);
   return (

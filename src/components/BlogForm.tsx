@@ -1,16 +1,34 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BlogForm = () => {
+export interface BlogFormProps {
+  initialData?: {
+    id: string;
+    title: string;
+    description: string;
+    writtenBy: string;
+    date: string;
+    imageUrl: string; // URL de la imagen para casos de edición
+  } | null;
+}
+
+const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [writtenBy, setWrittenBy] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [title, setTitle] = useState<string>(initialData?.title || "");
+  const [description, setDescription] = useState<string>(initialData?.description || "");
+  const [writtenBy, setWrittenBy] = useState<string>(initialData?.writtenBy || "");
+  const [date, setDate] = useState<string>(initialData?.date || "");
   const [image, setImage] = useState<File | null>(null);
+ 
+  useEffect(() => {
+    if (initialData?.imageUrl) {
+      // Si existe una imagen URL, podrías usarla como referencia visual en el formulario
+      console.log("Cargando imagen para editar:", initialData.imageUrl);
+    }
+  }, [initialData]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -23,31 +41,44 @@ const BlogForm = () => {
       formData.append("image", image);
     }
 
-    const response = await fetch("/api/blog", {
-      method: "POST",
+    const method = initialData ? "PUT" : "POST"; // Determina si es creación o edición
+    const endpoint = initialData ? `/api/blog/${initialData.id}` : "/api/blog";
+
+    const response = await fetch(endpoint, {
+      method: method,
       body: formData,
     });
 
     if (response.ok) {
-      toast.success("Message Sent Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        initialData
+          ? "Blog actualizado exitosamente!"
+          : "Blog creado exitosamente!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else {
-      toast.error("Ops Message Not Sent!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        initialData
+          ? "Error al actualizar el blog!"
+          : "Error al crear el blog!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
 
@@ -74,7 +105,6 @@ const BlogForm = () => {
               />
             </div>
           </div>
-          {/* End .col */}
 
           <div className="col-12 col-md-12">
             <div className="form-group">
@@ -90,8 +120,6 @@ const BlogForm = () => {
               />
             </div>
           </div>
-          {/* End .col */}
-
 
           <div className="col-12 col-md-12">
             <div className="form-group">
@@ -107,7 +135,6 @@ const BlogForm = () => {
               />
             </div>
           </div>
-          {/* End .col */}
 
           <div className="col-12">
             <div className="form-group">
@@ -122,7 +149,6 @@ const BlogForm = () => {
               ></textarea>
             </div>
           </div>
-          {/* End .col */}
 
           <div className="col-12 col-md-12">
             <div className="form-group">
@@ -130,22 +156,21 @@ const BlogForm = () => {
                 type="file"
                 name="image"
                 placeholder="IMAGEN"
-                required
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setImage(e.target.files ? e.target.files[0] : null)
                 }
               />
             </div>
           </div>
-          {/* End .col */}
 
           <div className="col-12">
             <button type="submit" className="button">
-              <span className="button-text">Guardar</span>
+              <span className="button-text">
+                {initialData ? "Actualizar" : "Guardar"}
+              </span>
               <span className="button-icon fa fa-send"></span>
             </button>
           </div>
-          {/* End .col */}
         </div>
       </form>
     </>
@@ -153,3 +178,4 @@ const BlogForm = () => {
 };
 
 export default BlogForm;
+

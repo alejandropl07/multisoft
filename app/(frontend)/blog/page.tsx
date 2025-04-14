@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import cancelImg from "../../../public/assets/img/cancel.svg";
-import blogQuote from "../../../public/assets/img/blog/quote.svg";
 import AllBlogData from "../../../src/hooks/AllBlogData";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
@@ -20,10 +18,6 @@ const Blog = () => {
   const { singleData, isOpen, setIsOpen, blogsData, handleBlogsData } =
     AllBlogData();
 
-  // const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const handleModle = (id: any) => {
-  //   handleBlogsData(id);
-  // };
   const { blogs } = useAppSelector((state) => state.blog);
   const dispatch = useAppDispatch();
 
@@ -107,66 +101,6 @@ const Blog = () => {
                   {/* End .post-content */}
                 </article>
 
-                {/* Start ModalOneBlogContent */}
-                {/* <Modal
-                  isOpen={isOpen}
-                  onRequestClose={() => setIsOpen(false)}
-                  contentLabel="My dialog"
-                  className="custom-modal dark"
-                  overlayClassName="custom-overlay dark"
-                  closeTimeoutMS={500}
-                >
-                  <div>
-                    <button
-                      className="close-modal"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Image src={cancelImg} alt="close icon" />
-                    </button>
-
-                    <div className="box_inner blog-post">
-                      <article>
-                        <div className="title-section text-start text-sm-center">
-                          <h1>
-                            Post <span>Details</span>
-                          </h1>
-                          <span className="title-bg">posts</span>
-                        </div>
-
-                        <div className="meta open-sans-font">
-                          <span>
-                            <i className="fa fa-user"></i>{" "}
-                            {singleData?.commentor}
-                          </span>
-                          <span className="date">
-                            <i className="fa fa-calendar"></i> {singleData.date}
-                          </span>
-                          <span>
-                            <i className="fa fa-tags"></i> {singleData.tag}
-                          </span>
-                        </div>
-
-                        <h1>{singleData?.title}</h1>
-                        <Image
-                          src={singleData?.img}
-                          className="img-fluid"
-                          alt="Blog"
-                        />
-                        <div className="blog-excerpt open-sans-font pb-5">
-                          <p>{singleData?.description1}</p>
-                          <div className="quotebox">
-                            <div className="icon">
-                              <Image src={blogQuote} alt="blog quote" />
-                            </div>
-                            <p>{singleData?.description2}</p>
-                          </div>
-                          <p>{singleData?.description3}</p>
-                          <p>{singleData?.description4}</p>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-                </Modal> */}
               </div>
             ))}
           </div>

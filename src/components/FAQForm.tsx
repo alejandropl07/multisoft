@@ -1,45 +1,63 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+
+import React, { ChangeEvent, FormEvent, useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FAQForm = () => {
+interface FAQFormProps {
+  initialData?: {
+    FaqKey: string;
+    title: string;
+    description: string;
+  } | null;
+}
+
+const FAQForm: React.FC<FAQFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [title, setTitle] = useState<string>(initialData? initialData.title : "");
+  const [description, setDescription] = useState<string>(initialData? initialData.description : "");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const method = initialData ? "PUT" : "POST";
+    const endpoint = initialData ? `/api/faq/${initialData.FaqKey}` : "/api/faq";
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
 
-    const response = await fetch("/api/faq", {
-      method: "POST",
+    const response = await fetch(endpoint, {
+      method: method,
       body: formData,
     });
 
     if (response.ok) {
-      toast.success("Message Sent Successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        initialData ? "FAQ actualizado exitosamente!" : "FAQ creado exitosamente!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else {
-      toast.error("Ops Message Not Sent!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        initialData ? "Error al actualizar el FAQ!" : "Error al crear el FAQ!",
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     }
   };
 
@@ -85,7 +103,9 @@ const FAQForm = () => {
 
           <div className="col-12">
             <button type="submit" className="button">
-              <span className="button-text">Guardar</span>
+              <span className="button-text">
+                {initialData ? "Actualizar" : "Guardar"}
+              </span>
               <span className="button-icon fa fa-send"></span>
             </button>
           </div>

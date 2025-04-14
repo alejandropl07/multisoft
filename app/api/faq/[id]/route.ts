@@ -45,3 +45,41 @@ export async function DELETE(req: NextRequest, { params }:any) {
     );
   }
 }
+
+
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { Title, Description } = await req.json(); // Ahora solo obtenemos el título y descripción del cuerpo de la solicitud
+    const pool = await getConnection();
+
+    // Extraemos BlogKey directamente desde los parámetros de la URL
+    const { searchParams } = new URL(req.url);
+    const BlogKey = searchParams.get('BlogKey');
+
+    if (!BlogKey) {
+      return NextResponse.json(
+        { error: "BlogKey es requerido en la URL" },
+        { status: 400 }
+      );
+    }
+
+    const query = `
+      UPDATE FAQ
+      SET title = ${Title}, Description = ${Description}
+      WHERE BlogKey = ${BlogKey}
+    `;
+
+    const result = await pool?.query(query);
+
+    return NextResponse.json({
+      message: `Registro con BlogKey ${BlogKey} actualizado exitosamente.`,
+    });
+  } catch (err) {
+    console.error("Error al actualizar el registro:", err);
+    return NextResponse.json(
+      { error: "Error al actualizar el registro de la base de datos" },
+      { status: 500 }
+    );
+  }
+}

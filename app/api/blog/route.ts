@@ -6,7 +6,6 @@ import { promisify } from "util";
 import fs from "fs";
 // import path from "path";
 import { MAX, NVarChar } from "mssql";
-import path from "path";
 
 const pump = promisify(pipeline);
 
@@ -38,6 +37,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: "Imagen cargada exitosamente" });
   } catch (err) {
+    console.log(err);
     console.error("Error al insertar datos en la base de datos:", err);
     return NextResponse.json(
       { error: "Error al insertar datos en la base de datos" },

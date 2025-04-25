@@ -60,7 +60,9 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
         method: method,
         body: formData,
       });
-
+      console.log(method);
+      console.log(endpoint);
+      console.log(response);
       if (response.ok) {
         toast.success(
           initialData

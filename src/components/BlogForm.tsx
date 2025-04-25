@@ -56,7 +56,7 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
     console.log(initialData);
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch("/api/blog", {
         method: method,
         body: formData,
       });

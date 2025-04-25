@@ -53,16 +53,12 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
 
     const method = initialData ? "PUT" : "POST"; // Determina si es creación o edición
     const endpoint = initialData ? `/api/blog/${initialData.id}` : "/api/blog";
-    console.log(initialData);
 
     try {
-      const response = await fetch("/api/blog", {
+      const response = await fetch(endpoint, {
         method: method,
         body: formData,
       });
-      console.log(method);
-      console.log(endpoint);
-      console.log(response);
       if (response.ok) {
         toast.success(
           initialData

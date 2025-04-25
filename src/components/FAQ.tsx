@@ -70,8 +70,8 @@ export default function FAQ() {
           {faqs.map((faq: any) => (
             <Accordion
               key={faq.FaqKey}
-              expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
+              expanded={expanded === faq.Title}
+              onChange={handleChange(faq.Title)}
               sx={{
                 backgroundColor: isDark ? "#111111" : "white",
                 color: isDark ? "white" : "gray",
@@ -79,8 +79,8 @@ export default function FAQ() {
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1d-content"
-                id="panel1d-header"
+                // aria-controls="panel1d-content"
+                // id="panel1d-header"
                 key={faq.FaqKey}
               >
                 <Typography component="h3" variant="subtitle2" key={faq.FaqKey}>

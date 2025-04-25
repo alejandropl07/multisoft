@@ -36,12 +36,11 @@ const Blog = () => {
     }
   };
 
-  const uploadsDir = path.join(process.cwd(), 'uploads');
-  console.log(uploadsDir)
+  // const uploadsDir = path.join(process.cwd(), 'uploads');
+  // console.log(uploadsDir)
 
   useEffect(() => {
     Modal.setAppElement("#modal");
-
     const getBlogs = async () => {
       try {
         const result = await fetchBlogs();
@@ -49,7 +48,6 @@ const Blog = () => {
         console.log(error);
       }
     };
-
     getBlogs();
   }, []);
 
@@ -81,7 +79,7 @@ const Blog = () => {
                   <div className="post-thumb">
                     <div className="d-block position-relative overflow-hidden">
                       <Image
-                        src={`/${item?.Image_URL}`}
+                        src={`${item?.Image_URL}`}
                         className="img-fluid"
                         alt="image"
                         width={895}

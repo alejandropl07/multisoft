@@ -17,11 +17,11 @@ export async function POST(req: NextRequest) {
   const writtenBy = formData.get("writtenBy") as string;
   const file = formData.get("image") as Blob | any;
 
-  const nameImage = `${Date.now()}_${file.name}`;
-  const image_url = `uploads/${nameImage}`;
-  const image_url_public = `public/uploads/${nameImage}`;
+  // const nameImage = `${Date.now()}_${file.name}`;
+  // const image_url = `uploads/${nameImage}`;
+  // const image_url_public = `public/uploads/${nameImage}`;
 
-  await pump(file.stream(), fs.createWriteStream(image_url_public));
+  // await pump(file.stream(), fs.createWriteStream(image_url_public));
 
   try {
     const pool = await getConnection();
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       "INSERT INTO Blogs (title, description, image_url, date, writtenBy) VALUES (@title, @description, @image_url, @date, @writtenBy)";
     result?.input("title", NVarChar(50), title);
     result?.input("description", NVarChar(MAX), description);
-    result?.input("image_url", NVarChar(MAX), image_url);
+    result?.input("image_url", NVarChar(MAX), "");
     result?.input("date", NVarChar(MAX), date);
     result?.input("writtenBy", NVarChar(50), writtenBy);
     await result?.query(query);

@@ -13,4 +13,3 @@ function handleSwitchValue(value) {
 }
 
 export default handleSwitchValue;
-

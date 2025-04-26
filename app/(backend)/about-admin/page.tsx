@@ -19,8 +19,6 @@ export default function AboutAdminPage() {
       >
         <div className="row">
           {/*  Left Side Starts */}
-          
-
           {/*  Contact Form Starts  */}
           <div className="col-12 col-lg-12">
             <AboutForm />

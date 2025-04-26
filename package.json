@@ -29,6 +29,7 @@
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "cloudinary": "^2.6.0",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "formidable": "^3.5.2",
     "get-youtube-id": "^1.0.1",

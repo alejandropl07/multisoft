@@ -12,8 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 export interface BlogFormProps {
   initialData?: {
     id: string;
-    title: string;
-    description: string;
+    Title: string;
+    Description: string;
     writtenBy: string;
     date: string;
     imageUrl: string; // URL de la imagen para casos de edición
@@ -23,14 +23,10 @@ export interface BlogFormProps {
 const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>(initialData?.title || "");
-  const [description, setDescription] = useState<string>(
-    initialData?.description || ""
-  );
-  const [writtenBy, setWrittenBy] = useState<string>(
-    initialData?.writtenBy || ""
-  );
-  const [date, setDate] = useState<string>(initialData?.date || "");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [writtenBy, setWrittenBy] = useState<string>("");
+  const [date, setDate] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
@@ -38,6 +34,11 @@ const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
       // Si existe una imagen URL, podrías usarla como referencia visual en el formulario
       console.log("Cargando imagen para editar:", initialData.imageUrl);
     }
+    console.log(initialData);
+    setTitle(initialData?.Title || "");
+    setDescription(initialData?.Description || "");
+    setWrittenBy(initialData?.writtenBy || "");
+    setDate(initialData?.date || "");
   }, [initialData]);
 
   const handleSubmit = async (e: FormEvent) => {

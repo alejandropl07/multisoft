@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getConnection } from "../auth/db";
-import { pipeline } from "stream";
-import { promisify } from "util";
-import fs from "fs";
 import { MAX, NVarChar } from "mssql";
-
-const pump = promisify(pipeline);
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();

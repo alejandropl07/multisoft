@@ -1,14 +1,57 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// interface AboutProps {
+//   AboutKey: number;
+//   mission: string;
+//   vision: string;
+//   purpose: string;
+// }
+
 const AboutForm = () => {
   const form = useRef<HTMLFormElement>(null);
+  
 
   const [mission, setMission] = useState<string>("");
   const [vision, setVision] = useState<string>("");
   const [purpose, setPurpose] = useState<string>("");
+
+  const fetchAbout = async () => {
+    try {
+      const response = await fetch("/api/about");
+      if (!response.ok) {
+        throw new Error("Error al obtener el about");
+      }
+      const data = await response.json();
+      // setInvoicesData(data);
+      setMission(data.mission);
+      setVision(data.vision);
+      setPurpose(data.purpose);
+      return data;
+    } catch (error) {
+      console.error("Error al obtener el about:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
+  };
+
+  useEffect(() => {
+    const getAbout = async () => {
+      try {
+        const result = await fetchAbout();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAbout();
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

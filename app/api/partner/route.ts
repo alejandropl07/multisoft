@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getConnection } from "../auth/db";
 import { pipeline } from "stream";
 import { promisify } from "util";
-import fs from "fs";
 import { MAX, NVarChar } from "mssql";
+import cloudinary from "../../../config/cloudinary"; // Ruta al archivo de configuración
 
 const pump = promisify(pipeline);
 
@@ -12,13 +12,25 @@ export async function POST(req: NextRequest) {
   const address = formData.get("address") as string;
   const file = formData.get("image") as Blob | any;
 
-  const nameImage = `${Date.now()}_${file.name}`;
-  const image_url = `uploads/${nameImage}`;
-  const image_url_public = `public/uploads/${nameImage}`;
-
-  await pump(file.stream(), fs.createWriteStream(image_url_public));
-
   try {
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Subir la imagen a Cloudinary como stream
+    const uploadResult: any = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.v2.uploader.upload_stream(
+        { folder: "uploads" }, // Cambia el folder según tu preferencia
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+
+      uploadStream.end(buffer); // Enviar el buffer como stream
+    });
+
+    const image_url = uploadResult.secure_url; // URL pública de la imagen subida
+
     const pool = await getConnection();
     const result = await pool?.request();
     const query =

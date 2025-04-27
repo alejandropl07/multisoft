@@ -26,7 +26,7 @@ const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
 
     // Determina si se trata de creación o edición
     const method = initialData ? "PUT" : "POST";
-    const endpoint = initialData ? `/api/blog/${initialData.ValueKey}` : "/api/blog";
+    const endpoint = initialData ? `/api/blog/${initialData.ValueKey}` : "/api/values";
 
     const formData = new FormData();
     formData.append("title", title);
@@ -42,7 +42,7 @@ const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
 
     if (response.ok) {
       toast.success(
-        initialData ? "Blog actualizado exitosamente!" : "Blog creado exitosamente!",
+        initialData ? "Valor actualizado exitosamente!" : "Valor creado exitosamente!",
         {
           position: "top-right",
           autoClose: 2000,
@@ -55,7 +55,7 @@ const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
       );
     } else {
       toast.error(
-        initialData ? "Error al actualizar el blog!" : "Error al crear el blog!",
+        initialData ? "Error al actualizar el valor!" : "Error al crear el valor!",
         {
           position: "top-right",
           autoClose: 2000,

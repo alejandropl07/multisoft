@@ -7,16 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 interface FAQFormProps {
   initialData?: {
     FaqKey: string;
-    title: string;
-    description: string;
+    Title: string;
+    Description: string;
   } | null;
 }
 
 const FAQForm: React.FC<FAQFormProps> = ({ initialData }) => {
   const form = useRef<HTMLFormElement>(null);
 
-  const [title, setTitle] = useState<string>(initialData? initialData.title : "");
-  const [description, setDescription] = useState<string>(initialData? initialData.description : "");
+  const [title, setTitle] = useState<string>(initialData? initialData.Title : "");
+  const [description, setDescription] = useState<string>(initialData? initialData.Description : "");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

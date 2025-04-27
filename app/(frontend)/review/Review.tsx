@@ -20,10 +20,10 @@ export default function Review(review: ReviewProps) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "#decd8769" }} aria-label="recipe">
-            {review.name[0]}
+            {review.comment[0]}
           </Avatar>
         }
-        title={review.name}
+        title={review.comment}
         subheader={review.date}
         subheaderTypographyProps={{
           style: { color: isDark ? "white" : "gray" },
@@ -31,7 +31,7 @@ export default function Review(review: ReviewProps) {
       />
 
       <CardContent>
-        <p className="open-sans-font">{review.description}</p>
+        <p className="open-sans-font">{review.comment}</p>
       </CardContent>
       {/* <CardActions disableSpacing>
         {Array(review.rating)

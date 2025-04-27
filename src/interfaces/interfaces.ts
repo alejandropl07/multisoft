@@ -3,12 +3,10 @@ export interface ChildrenProps {
 }
 
 export interface ReviewProps {
-  id: number;
-  name: string;
+  TestimonyKey: number;
+  comment: string;
   date: string;
   description: string;
-  delayAnimation: string;
-  rating: number
 }
 
 

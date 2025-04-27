@@ -8,28 +8,45 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(email: string) {
-  return { email };
-}
-
-const rows = [
-  createData("Frozen yoghurt"),
-  createData("Ice cream sandwich"),
-  createData("Eclair"),
-  createData("Cupcake"),
-  createData("Gingerbread"),
-];
-
 export default function BulletinAdminPage() {
+  const [rows, setRows] = React.useState([{email: ""}]);
+
+  const fetchRows = async () => {
+      try {
+        const response = await fetch("/api/bulletin");
+        if (!response.ok) {
+          throw new Error("Error al obtener los emails");
+        }
+        const data = await response.json();
+        setRows(data);
+        return data;
+      } catch (error) {
+        console.error("Error al obtener los emails:", error);
+        throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+      }
+    };
+  
+    React.useEffect(() => {
+      const getRows = async () => {
+        try {
+          const result = await fetchRows();
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getRows();
+    }, []);
+  
+
   const exportToCSV = (data: any[]) => {
-    const headers = Object.keys(data[0]).join(","); // Encabezados del CSV
-    const rows = data.map((row) => Object.values(row).join(",")).join("\n"); // Filas de datos
+    const headers = Object.keys(data[0]).join(",");
+    const rows = data.map((row) => Object.values(row).join(",")).join("\n");
     const csvContent = `${headers}\n${rows}`;
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", 'data.csv');
+    link.setAttribute("download", "data.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -78,7 +95,7 @@ export default function BulletinAdminPage() {
             </TableContainer>
           </div>
           <div className="col-12 mt-4">
-            <button className="button" onClick={()=> exportToCSV(rows)}>
+            <button className="button" onClick={() => exportToCSV(rows)}>
               <span className="button-text">Exportar CSV</span>
               <span className="button-icon fa fa-send"></span>
             </button>

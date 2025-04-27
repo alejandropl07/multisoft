@@ -8,27 +8,13 @@ import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import AppNavbar from '@/src/components/dashboard/AppNavbar';
-import Header from '@/src/components/dashboard/Header';
+// import Header from '@/src/components/dashboard/Header';
 import SideMenu from '@/src/components/dashboard/SideMenu';
 import AppTheme from '@/src/components/shared-theme/AppTheme';
-// import {
-//   chartsCustomizations,
-//   dataGridCustomizations,
-//   datePickersCustomizations,
-//   treeViewCustomizations,
-// } from './theme/customizations';
 
-// const xThemeComponents = {
-//   ...chartsCustomizations,
-//   ...dataGridCustomizations,
-//   ...datePickersCustomizations,
-//   ...treeViewCustomizations,
-// };
-
-export default function Dashboard(props: { disableCustomTheme?: boolean }) {
+export default function Dashboard() {
   return (
-    <AppTheme {...props} >
+    <AppTheme >
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
         <SideMenu />
@@ -53,7 +39,7 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
+            {/* <Header /> */}
           </Stack>
         </Box>
       </Box>

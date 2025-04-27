@@ -6,17 +6,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import MenuContent from './MenuContent';
 
-// const Drawer = styled(MuiDrawer)({
-//   width: drawerWidth,
-//   flexShrink: 0,
-//   boxSizing: 'border-box',
-//   mt: 10,
-//   [`& .${drawerClasses.paper}`]: {
-//     width: drawerWidth,
-//     boxSizing: 'border-box',
-//   },
-// });
-
 export default function SideMenu() {
   return (
     <Drawer

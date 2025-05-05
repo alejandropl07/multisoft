@@ -7,8 +7,10 @@ export interface ReviewProps {
   comment: string;
   date: string;
   description: string;
+  name: string;
+  cargo: string;
+  imageUrl?: string; // URL de la imagen existente (opcional)
 }
-
 
 export interface TimelineProps {
   year: string;

@@ -7,7 +7,7 @@ export async function GET(req:NextRequest, { params }:any) {
     const pool = await getConnection(); // Conexión a la base de datos
 
     // Consulta SQL con el parámetro dinámico
-    const query = `SELECT * FROM Value WHERE ValueKey = ${id}`;
+    const query = `SELECT * FROM ValuesTable WHERE ValueKey = ${id}`;
     const result = await pool?.query(query);
 
     if (!result?.recordset || result.recordset.length === 0) {
@@ -27,12 +27,11 @@ export async function GET(req:NextRequest, { params }:any) {
   }
 }
 
-
 export async function DELETE(req: NextRequest, { params }:any) {
   try {
     const { id } = params; // Obtén el ID dinámico de la URL
     const pool = await getConnection();
-    const query = `DELETE FROM Value WHERE ValueKey = ${id}`;
+    const query = `DELETE FROM ValuesTable WHERE ValueKey = ${id}`;
 
     const result = await pool?.query(query);
 

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
+// import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import { ReviewProps } from "@/src/interfaces/interfaces";
 import { useAppSelector } from "@/src/redux/hooks";
@@ -19,11 +19,13 @@ export default function Review(review: ReviewProps) {
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "#decd8769" }} aria-label="recipe">
-            {review.comment[0]}
-          </Avatar>
+          <Avatar
+            sx={{ bgcolor: "#decd8769" }}
+            aria-label="recipe"
+            src={review.imageUrl} // Asegúrate de que `review.image` contiene la URL de la imagen
+          />
         }
-        title={review.comment}
+        title={`${review.name} - ${review.cargo}`}
         subheader={review.date}
         subheaderTypographyProps={{
           style: { color: isDark ? "white" : "gray" },

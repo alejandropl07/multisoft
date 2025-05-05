@@ -7,6 +7,8 @@ export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const date = formData.get("date") as string;
   const comment = formData.get("comment") as string;
+  const name = formData.get("name") as string;
+  const cargo = formData.get("cargo") as string;
   const file = formData.get("image") as Blob | any;
 
   try {
@@ -29,8 +31,10 @@ export async function POST(req: NextRequest) {
     const pool = await getConnection();
     const result = await pool?.request();
     const query =
-      "INSERT INTO Testimony (date, comment, image_url) VALUES (@date, @comment, @image_url)";
+      "INSERT INTO Testimony (date, comment, image_url, name, cargo) VALUES (@date, @comment, @image_url, @name, @cargo)";
     result?.input("date", NVarChar(50), date);
+    result?.input("name", NVarChar(50), name);
+    result?.input("cargo", NVarChar(50), cargo);
     result?.input("comment", NVarChar(MAX), comment);
     result?.input("image_url", NVarChar(MAX), image_url);
     await result?.query(query);

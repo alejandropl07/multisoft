@@ -24,6 +24,9 @@ import {
   PaginatorRowsPerPageDropdownOptions,
 } from "primereact/paginator";
 import { deleteBlog } from "@/src/redux/features/blog/blogSlice";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useRouter } from "next/navigation";
 
 const Invoices = () => {
   const dispatch = useDispatch();
@@ -35,10 +38,10 @@ const Invoices = () => {
 
   const [invoicesData, setInvoicesData] = useState<any[]>([
     {
-      id: 1,
-      invoice_id: "INV-2025-001",
-      receiver_name: "Juan Pérez",
-      status: "Pagada",
+      ValueKey: 1,
+      title: "",
+      description: "",
+      image_url: "",
     },
   ]);
   const [invoiceData, setInvoiceData] = useState<any | undefined>(undefined);
@@ -47,32 +50,73 @@ const Invoices = () => {
 
   const hidePagination = selectedInvoices.length > 0;
 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch("/api/about");
-      if (!response.ok) {
-        throw new Error("Error al obtener los datos");
+
+  const fetchBlogs = async () => {
+      try {
+        const response = await fetch("/api/values");
+        if (!response.ok) {
+          throw new Error("Error al obtener los blogs");
+        }
+        const data = await response.json();
+        setInvoicesData(data);
+        return data;
+      } catch (error) {
+        console.error("Error al obtener los blogs:", error);
+        throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
       }
-      const data = await response.json();
-      dispatch(deleteBlog(data));
-      return data;
-    } catch (error) {
-      console.error("Error al obtener los datos:", error);
-      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
-    }
-  };
+    };
+  
+    useEffect(() => {
+      const getBlogs = async () => {
+        try {
+          const result = await fetchBlogs();
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getBlogs();
+    }, []);
+
+    const handleDelete = async (id: any) => {
+      try {
+        const response = await fetch(`/api/values/${id}`, {
+          method: "DELETE", // Cambiamos el método a DELETE
+        });
+  
+        if (!response.ok) {
+          throw new Error("Error al eliminar el registro");
+        }
+        const data = await response.json();
+        dispatch(deleteBlog(id));
+        console.log(`Blog con ID ${id} eliminado exitosamente.`);
+        return data;
+      } catch (error) {
+        console.error("Error al eliminar el registro:", error);
+        throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+      }
+    };
 
   const statusBodyTemplate = (rowData: any) => {
     return (
       <div>
-        <IconButton onClick={handleDelete}>
-          <OpenInNewIcon />
+        <IconButton onClick={() => handleUpdate(rowData.ValueKey)}>
+          <EditIcon />
         </IconButton>
-        <IconButton>
-          <OpenInNewIcon />
+        <IconButton onClick={() => handleDelete(rowData.ValueKey)}>
+          <DeleteIcon />
         </IconButton>
       </div>
     );
+  };
+
+  const router = useRouter();
+  const handleUpdate = async (id: any) => {
+    try {
+      router.push(`values-admin/${id}`);
+    } catch (error) {
+      console.error("Error al actualizar el registro:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
   };
 
   const handleRowSelect = (
@@ -139,7 +183,7 @@ const Invoices = () => {
             paginator={!hidePagination}
             paginatorTemplate={paginatorTemplate}
             rows={5}
-            dataKey="id"
+            dataKey="ValueKey"
             rowsPerPageOptions={[5, 10, 25, 50]}
             tableStyle={{
               width: "100%",
@@ -150,12 +194,12 @@ const Invoices = () => {
               headerStyle={{ width: "2%" }}
             ></Column>
             <Column
-              field="invoice_id"
+              field="title"
               header="Título"
               style={{ width: "20%" }}
             ></Column>
             <Column
-              field="receiver_name"
+              field="description"
               header="Descripción"
               style={{ width: "20%" }}
             ></Column>

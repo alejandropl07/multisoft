@@ -8,6 +8,8 @@ interface TestimonyFormProps {
   initialData?: {
     TestimonyKey: string;
     date: string;
+    name: string;
+    cargo: string;
     comment: string;
     imageUrl?: string; // URL de la imagen existente (opcional)
   } | null;
@@ -18,6 +20,8 @@ const TestimonyForm: React.FC<TestimonyFormProps> = ({ initialData }) => {
 
   // Usa los datos iniciales si están presentes o valores vacíos si no lo están
   const [date, setDate] = useState<string>(initialData?.date || "");
+  const [name, setName] = useState<string>(initialData?.name || "");
+  const [cargo, setCargo] = useState<string>(initialData?.cargo || "");
   const [comment, setComment] = useState<string>(initialData?.comment || "");
   const [image, setImage] = useState<File | null>(null);
 
@@ -30,6 +34,8 @@ const TestimonyForm: React.FC<TestimonyFormProps> = ({ initialData }) => {
 
     const formData = new FormData();
     formData.append("date", date);
+    formData.append("name", name);
+    formData.append("cargo", cargo);
     formData.append("comment", comment);
     if (image) {
       formData.append("image", image); // Nueva imagen cargada
@@ -78,6 +84,34 @@ const TestimonyForm: React.FC<TestimonyFormProps> = ({ initialData }) => {
         onSubmit={handleSubmit}
       >
         <div className="row">
+        <div className="col-12 col-md-12">
+            <div className="form-group">
+              <input
+                type="text"
+                name="name"
+                placeholder="Nombre"
+                required
+                value={name}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
+              />
+            </div>
+          </div>
+          <div className="col-12 col-md-12">
+            <div className="form-group">
+              <input
+                type="text"
+                name="cargo"
+                placeholder="Cargo"
+                required
+                value={cargo}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setCargo(e.target.value)
+                }
+              />
+            </div>
+          </div>
           <div className="col-12 col-md-12">
             <div className="form-group">
               <input

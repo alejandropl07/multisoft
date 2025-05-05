@@ -15,12 +15,7 @@ const heroContent = {
   heroMobileImage: heroImgMobile,
   heroTitleName: "Multisoft",
   heroDesignation: "",
-  heroDescriptions: `MultiConsulting S.A.de C.V. tiene su origen en
-1988. A partir de ese momento, hemos ofrecido
-servicios productos de la más alta calidad, para
-hacer más eficiente la gestión directiva, tanto en la
-iniciativa privada como en la gubernamental a todos
-sus niveles.`,
+  heroDescriptions: `Multisoft SRL, fundada el 22 de febrero de 2024, se especializa en la implantación de sistemas ERP, particularmente Magnus ERP – SAGE 500, en colaboración con MultiConsulting S.A de C.V. Utilizando su metodología IMPROVE (Impacto en la Productividad y Ventajas Estratégicas) para ofrecer consultoría, implantación y verticalización del ERP.`,
   heroBtn: "Más sobre nosotros",
 };
 

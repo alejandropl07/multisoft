@@ -1,6 +1,5 @@
 "use client";
-
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +8,7 @@ interface BlogFormProps {
     ValueKey: string;
     title: string;
     description: string;
-    imageUrl?: string; // URL de la imagen existente (opcional)
+    image_url?: string | null; // URL de la imagen existente (opcional)
   } | null;
 }
 
@@ -19,7 +18,18 @@ const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
   // Usa los datos iniciales si están presentes, o valores vacíos si no lo están
   const [title, setTitle] = useState<string>(initialData?.title || "");
   const [description, setDescription] = useState<string>(initialData?.description || "");
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | string | null>(null);
+
+
+  useEffect(() => {
+      if (initialData?.image_url) {
+        // Si existe una imagen URL, podrías usarla como referencia visual en el formulario
+        console.log("Cargando imagen para editar:", initialData.image_url);
+      }
+      setTitle(initialData?.title || "");
+      setDescription(initialData?.description || "");
+      setImage(initialData?.image_url || "");
+    }, [initialData]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -113,16 +123,16 @@ const ValueForm: React.FC<BlogFormProps> = ({ initialData }) => {
             <div className="form-group">
               <input
                 type="file"
-                name="image"
+                name="image_url"
                 placeholder="IMAGEN"
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setImage(e.target.files ? e.target.files[0] : null)
                 }
               />
-              {initialData?.imageUrl && (
+              {initialData?.image_url && (
                 <p>
                   Imagen actual:{" "}
-                  <a href={initialData.imageUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={initialData.image_url} target="_blank" rel="noopener noreferrer">
                     Ver imagen
                   </a>
                 </p>

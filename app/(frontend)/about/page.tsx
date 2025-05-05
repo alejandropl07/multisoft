@@ -1,15 +1,17 @@
-"use client"
-import { timelineContent } from "./timelineContent";
+"use client";
+// import { timelineContent } from "./timelineContent";
 import heroImgMobile from "@/public/assets/img/hero/img-mobile.png";
 import Image from "next/image";
 import { TimelineProps } from "@/src/interfaces/interfaces";
-import { fetchAbout } from "@/src/redux/features/about/aboutSlice";
+// import { fetchAbout } from "@/src/redux/features/about/aboutSlice";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AboutPage = () => {
   const dispatch = useAppDispatch();
-  const { abouts } = useAppSelector((state) => state.about);
+  // const { abouts } = useAppSelector((state) => state.about);
+  const [aboutData, setAboutData] = useState<any>({});
+  const [valuesData, setValuesData] = useState<any>([]);
 
   const chunkArray = (array: TimelineProps[], size: number) => {
     const result = [];
@@ -26,7 +28,22 @@ const AboutPage = () => {
         throw new Error("Error al obtener los datos");
       }
       const data = await response.json();
-      dispatch(fetchAbout(data));
+      setAboutData(data);
+      return data;
+    } catch (error) {
+      console.error("Error al obtener los datos:", error);
+      throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+    }
+  };
+
+  const fetchValues = async () => {
+    try {
+      const response = await fetch("/api/values");
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos");
+      }
+      const data = await response.json();
+      setValuesData(data);
       return data;
     } catch (error) {
       console.error("Error al obtener los datos:", error);
@@ -38,6 +55,7 @@ const AboutPage = () => {
     const getAbout = async () => {
       try {
         const result = await fetchAbouts();
+        const values = await fetchValues();
       } catch (error) {
         console.log(error);
       }
@@ -46,7 +64,37 @@ const AboutPage = () => {
     getAbout();
   }, []);
 
-  const timelineChunks = chunkArray(timelineContent, 2);
+  const formattedTimelineContent = [
+    {
+      year: "",
+      title: "Visión",
+      details: aboutData.vision,
+    },
+    {
+      year: "",
+      title: "Misión",
+      details: aboutData.mission,
+    },
+    {
+      year: "",
+      title: "Propósito",
+      details: aboutData.purpose,
+    },
+  ];
+
+  const formattedValuesContent = valuesData.map((value:any) => ({
+    year: "",
+    title: value.title,
+    details: value.description,
+  }));
+
+  const fullTimelineContent = [
+    ...formattedTimelineContent,
+    ...formattedValuesContent,
+  ];
+
+  const timelineChunks = chunkArray(fullTimelineContent, 2);
+
   return (
     <div data-aos="fade-down" data-aos-duration="1200" className="about">
       <div className="title-section text-start text-sm-center">
@@ -76,11 +124,6 @@ const AboutPage = () => {
 
           {/* Timeline Starts */}
           <div className="row">
-            {/* <div className="col-12">
-              <h3 className="text-uppercase pb-5 mb-0 text-start text-sm-center custom-title ft-wt-600">
-                Our Timeline
-              </h3>
-            </div> */}
             <div className="container">
               {timelineChunks.map((chunk, index) => (
                 <div className="row" key={index}>

@@ -16,4 +16,5 @@ export interface TimelineProps {
   year: string;
   title: string;
   details: string;
+  image_url?:string
 }

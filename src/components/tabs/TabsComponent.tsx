@@ -24,11 +24,6 @@ function TabsComponent() {
       menuName: "Home",
       onClick: () => handleMenuClick(""),
     },
-    // {
-    //   icon: "fa-map",
-    //   menuName: "Pricing",
-    //   onClick: () => handleMenuClick("pricing"),
-    // },
     {
       icon: "fa-users",
       menuName: "Acerca",
@@ -36,13 +31,13 @@ function TabsComponent() {
     },
     {
       icon: "fa-briefcase",
-      menuName: "Reseñas",
-      onClick: () => handleMenuClick("review"),
+      menuName: "Servicios",
+      onClick: () => handleMenuClick("services"),
     },
     {
-      icon: "fa-envelope-open",
-      menuName: "Contacto",
-      onClick: () => handleMenuClick("contact"),
+      icon: "fa-briefcase",
+      menuName: "Reseñas",
+      onClick: () => handleMenuClick("review"),
     },
     {
       icon: "fa-comments",
@@ -50,10 +45,15 @@ function TabsComponent() {
       onClick: () => handleMenuClick("blog"),
     },
     {
-      icon: "fa-user",
-      menuName: "Login",
-      onClick: () => handleMenuClick("login"),
+      icon: "fa-envelope-open",
+      menuName: "Contacto",
+      onClick: () => handleMenuClick("contact"),
     },
+    // {
+    //   icon: "fa-user",
+    //   menuName: "Login",
+    //   onClick: () => handleMenuClick("login"),
+    // },
   ];
 
   const menuItemDashboard = [

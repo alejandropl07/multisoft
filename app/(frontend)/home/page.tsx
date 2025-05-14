@@ -9,6 +9,10 @@ import { useRouter } from "next/navigation";
 import Footer from "@/src/components/Footer";
 import FAQ from "@/src/components/FAQ";
 import Reviews from "../review/page";
+import Services from "../services/page";
+import Partners from "../partner/page";
+import Blog from "../blog/page";
+import { useAppSelector } from "@/src/redux/hooks";
 
 const heroContent = {
   heroImage: "/assets/img/hero/dark.png",
@@ -25,11 +29,13 @@ const HomePage = () => {
     setIsOpen(!isOpen);
   }
 
+  const { isDark } = useAppSelector((state) => state.ui);
+
   const router = useRouter();
 
   return (
     <>
-      <div className="home">
+      <div className="home mb-5">
         <div
           className="container-fluid main-container container-home p-0 g-0 "
           data-aos="fade-up"
@@ -92,7 +98,10 @@ const HomePage = () => {
           {/* End  Modal for About More */}
         </div>
       </div>
+      <Services/>
       <Reviews />
+      <Partners/>
+      <Blog/>
       <FAQ />
       <Footer />
     </>

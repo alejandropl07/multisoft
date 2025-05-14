@@ -42,6 +42,7 @@ const AboutPage = () => {
       if (!response.ok) {
         throw new Error("Error al obtener los datos");
       }
+      console.log(response);
       const data = await response.json();
       setValuesData(data);
       return data;
@@ -56,6 +57,7 @@ const AboutPage = () => {
       try {
         const result = await fetchAbouts();
         const values = await fetchValues();
+        console.log(values);
       } catch (error) {
         console.log(error);
       }
@@ -69,23 +71,27 @@ const AboutPage = () => {
       year: "",
       title: "Visión",
       details: aboutData.vision,
+      image_url: "",
     },
     {
       year: "",
       title: "Misión",
       details: aboutData.mission,
+      image_url: "",
     },
     {
       year: "",
       title: "Propósito",
       details: aboutData.purpose,
+      image_url: "",
     },
   ];
 
-  const formattedValuesContent = valuesData.map((value:any) => ({
+  const formattedValuesContent = valuesData.map((value: any) => ({
     year: "",
     title: value.title,
     details: value.description,
+    image_url: value.image_url, // agregar la imagen
   }));
 
   const fullTimelineContent = [
@@ -132,9 +138,23 @@ const AboutPage = () => {
                       <div className="resume-box">
                         <ul>
                           <li>
+                              {val.image_url ? (
+                                <Image
+                                  src={val.image_url}
+                                  alt={val.title}
+                                  width={30}
+                                  height={30}
+                                  color="white"
+                                  style={{ objectFit: "contain" }}
+                                />
+                              ) : (
                             <div className="icon">
-                              <i className="fa fa-briefcase"></i>
+                              
+                              
+                                <i className="fa fa-briefcase"></i>
                             </div>
+                              )}
+
                             <h5 className="poppins-font text-uppercase">
                               {val.title}
                             </h5>

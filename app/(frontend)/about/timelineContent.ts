@@ -7,6 +7,7 @@ export const timelineContent: TimelineProps[] = [
     details: `  En MultiConsulting
 deseamos posicionarnos
 como una Firma con productos y servicios especializados, de la mejor calidad`,
+
   },
   {
     year: "",

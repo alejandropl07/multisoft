@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { showLogin: true, showRegister: false, isDark: true };
+const initialState = { showLogin: true, showRegister: false, isDark: false };
 
 export const uiSlice = createSlice({
   name: "ui",

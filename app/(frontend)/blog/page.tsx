@@ -1,22 +1,39 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import AllBlogData from "../../../src/hooks/AllBlogData";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { fetchBlog } from "@/src/redux/features/blog/blogSlice";
-import path from "path";
 
 interface Blog {
   BlogKey: number;
   Title: string;
   Description: string;
   Image_URL: string;
+  date: string;
+  writtenBy: string;
 }
 
 const Blog = () => {
-  const { singleData, isOpen, setIsOpen, blogsData, handleBlogsData } =
-    AllBlogData();
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (blog: Blog) => {
+    setSelectedBlog(blog);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBlog(null);
+  };
+
+  const { isDark } = useAppSelector((state) => state.ui);
+
+  const modalStyles = {
+    backgroundColor: isDark ? "#1f2937" : "#ffffff",
+    color: isDark ? "#ffffff" : "#000000",
+  };
 
   const { blogs } = useAppSelector((state) => state.blog);
   const dispatch = useAppDispatch();
@@ -35,9 +52,6 @@ const Blog = () => {
       throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
     }
   };
-
-  // const uploadsDir = path.join(process.cwd(), 'uploads');
-  // console.log(uploadsDir)
 
   useEffect(() => {
     Modal.setAppElement("#modal");
@@ -74,7 +88,7 @@ const Blog = () => {
               >
                 <article
                   className="post-container"
-                  // onClick={() => handleModle(item?.blogKey)}
+                  onClick={() => openModal(item)}
                 >
                   <div className="post-thumb">
                     <div className="d-block position-relative overflow-hidden">
@@ -98,11 +112,59 @@ const Blog = () => {
                   </div>
                   {/* End .post-content */}
                 </article>
-
               </div>
             ))}
           </div>
         </div>
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Detalles del Blog"
+          className="custom-modal"
+          overlayClassName="custom-overlay"
+          style={{
+              content: {
+                ...modalStyles,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                padding: "2rem",
+                maxWidth: "800px",
+                width: "90%",
+                height: "100%",
+                overflowY: "auto",
+                borderRadius: "8px",
+              },
+              overlay: {
+                backgroundColor: "rgba(0, 0, 0, 0.75)",
+              },
+            }}
+        >
+          {selectedBlog && (
+            <div className="modal-content">
+              <h2>{selectedBlog.Title}</h2>
+              <p>
+                <strong>Escrito por:</strong> {selectedBlog.writtenBy}
+              </p>
+              <p>
+                <strong>Fecha:</strong> {selectedBlog.date}
+              </p>
+              <Image
+                src={selectedBlog.Image_URL}
+                alt="Blog"
+                width={800}
+                height={400}
+                className="img-fluid"
+              />
+              <p>{selectedBlog.Description}</p>
+              <button onClick={closeModal} className="btn btn-primary mt-3">
+                Cerrar
+              </button>
+            </div>
+          )}
+        </Modal>
+
         {/* Articles Ends */}
       </div>
     </>

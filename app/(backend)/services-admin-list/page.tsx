@@ -5,7 +5,6 @@ import {
   DataTableSelectionMultipleChangeEvent,
 } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Tag } from "primereact/tag";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import "./styles.css";
@@ -29,8 +28,8 @@ const Invoices = () => {
   const [invoicesData, setInvoicesData] = useState<any[]>([
     {
       ServiceKey: 1,
-      invoice_id: "INV-2025-001",
-      receiver_name: "Juan Pérez",
+      title: "INV-2025-001",
+      description: "Juan Pérez",
       status: "Pagada",
     },
   ]);
@@ -49,6 +48,7 @@ const Invoices = () => {
       const data = await response.json();
       // dispatch(fetchFaq(data));
       setInvoicesData(data);
+      console.log(data)
       return data;
     } catch (error) {
       console.error("Error al obtener los Services:", error);
@@ -79,11 +79,13 @@ const Invoices = () => {
       const data = await response.json();
       // dispatch(deleteBlog(id));
       console.log(`Servicio con ID ${id} eliminado exitosamente.`);
+      await fetchServices();
       return data;
     } catch (error) {
       console.error("Error al eliminar el registro:", error);
       throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
     }
+    
   };
 
   const router = useRouter();
@@ -100,10 +102,10 @@ const Invoices = () => {
   const statusBodyTemplate = (rowData: any) => {
     return (
       <div>
-        <IconButton onClick={() => handleUpdate(rowData.FaqKey)}>
+        <IconButton onClick={() => handleUpdate(rowData.ServiceKey)}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => handleDelete(rowData.FaqKey)}>
+        <IconButton onClick={() => handleDelete(rowData.ServiceKey)}>
           <DeleteIcon />
         </IconButton>
       </div>
@@ -174,7 +176,7 @@ const Invoices = () => {
             paginator={!hidePagination}
             paginatorTemplate={paginatorTemplate}
             rows={5}
-            dataKey="id"
+            dataKey="ServiceKey"
             rowsPerPageOptions={[5, 10, 25, 50]}
             tableStyle={{
               width: "100%",
@@ -185,12 +187,12 @@ const Invoices = () => {
               headerStyle={{ width: "2%" }}
             ></Column>
             <Column
-              field="invoice_id"
+              field="title"
               header="Título"
               style={{ width: "20%" }}
             ></Column>
             <Column
-              field="receiver_name"
+              field="description"
               header="Descripción"
               style={{ width: "20%" }}
             ></Column>

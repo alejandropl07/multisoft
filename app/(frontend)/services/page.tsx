@@ -55,7 +55,7 @@ const Services = () => {
         data-aos-duration="1200"
       >
         <h1>
-          my <span>service</span>
+          mis <span>servicios</span>
         </h1>
         <span className="title-bg">Servicios</span>
       </div>
@@ -66,33 +66,32 @@ const Services = () => {
             {services.map((item: any) => (
               <div
                 key={item.ServiceKey}
-                className="col-12 col-md-6 col-lg-6 col-xl-4 mb-30"
+                className="col-12 col-md-6 col-lg-6 col-xl-6 mb-30"
               >
-                <article
-                  className="post-container"
-                  // onClick={() => handleModle(item?.blogKey)}
-                >
-                  <div className="post-thumb">
-                    <div className="d-block position-relative overflow-hidden">
+                <article className="post-container">
+                  <div className="post-content">
+                    <div
+                      className="entry-header"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
                       <Image
                         src={`${item?.image_url}`}
                         className="img-fluid"
                         alt="image"
-                        width={895}
-                        height={552}
+                        width={40}
+                        height={40}
+                        style={{marginBottom:"20px"}}
                       />
-                    </div>
-                  </div>
-                  {/* End .thumb */}
-                  <div className="post-content">
-                    <div className="entry-header">
                       <h3>{item?.title}</h3>
                     </div>
                     <div className="entry-content open-sans-font">
                       <p>{item?.description?.slice(0, 100)}</p>
                     </div>
                   </div>
-                  {/* End .post-content */}
                 </article>
               </div>
             ))}

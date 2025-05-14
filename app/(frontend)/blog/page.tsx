@@ -73,7 +73,7 @@ const Blog = () => {
         data-aos-duration="1200"
       >
         <h1>
-          my <span>blog</span>
+          mi <span>blog</span>
         </h1>
         <span className="title-bg">posts</span>
       </div>

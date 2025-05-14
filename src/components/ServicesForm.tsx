@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +9,7 @@ interface ServicesFormProps {
     ServiceKey: string;
     title: string;
     description: string;
-    imageUrl?: string; // URL de la imagen existente (opcional)
+    image_url?: string; // URL de la imagen existente (opcional)
   } | null;
 }
 
@@ -21,12 +21,43 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ initialData }) => {
   const [description, setDescription] = useState<string>(initialData?.description || "");
   const [image, setImage] = useState<File | null>(null);
 
+
+  const fetchAbout = async () => {
+      try {
+        const response = await fetch(`/api/services/${initialData?.ServiceKey}`);
+        if (!response.ok) {
+          throw new Error("Error al obtener el about");
+        }
+        const data = await response.json();
+        // setInvoicesData(data);
+        setTitle(data.title);
+        setDescription(data.description);
+        setImage(data.image_url);
+        return data;
+      } catch (error) {
+        console.error("Error al obtener el about:", error);
+        throw error; // Re-lanzar el error para manejarlo en otro lugar si es necesario
+      }
+    };
+  
+    useEffect(() => {
+      const getAbout = async () => {
+        try {
+          const result = await fetchAbout();
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAbout();
+    }, [initialData]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Determina si se trata de creación o edición
     const method = initialData ? "PUT" : "POST";
-    const endpoint = initialData ? `/api/services/${initialData.ServiceKey}` : "/api/services";
+    const id = initialData?.ServiceKey;
+    const endpoint = initialData ? `/api/services/${id}` : "/api/services";
 
     const formData = new FormData();
     formData.append("title", title);
@@ -39,6 +70,8 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ initialData }) => {
       method: method,
       body: formData,
     });
+
+    console.log(response)
 
     if (response.ok) {
       toast.success(
@@ -119,10 +152,10 @@ const ServicesForm: React.FC<ServicesFormProps> = ({ initialData }) => {
                   setImage(e.target.files ? e.target.files[0] : null)
                 }
               />
-              {initialData?.imageUrl && (
+              {initialData?.image_url && (
                 <p>
                   Imagen actual:{" "}
-                  <a href={initialData.imageUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={initialData.image_url} target="_blank" rel="noopener noreferrer">
                     Ver imagen
                   </a>
                 </p>

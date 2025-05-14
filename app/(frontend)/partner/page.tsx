@@ -54,9 +54,9 @@ const Partners = () => {
         data-aos-duration="1200"
       >
         <h1>
-          my <span>Partner</span>
+          Mis <span>Aliados</span>
         </h1>
-        <span className="title-bg">Partners</span>
+        <span className="title-bg">Aliados</span>
       </div>
       <div className="container" data-aos="fade-up" data-aos-duration="1200">
         {/*  Articles Starts  */}
@@ -67,30 +67,38 @@ const Partners = () => {
                 key={item.ServiceKey}
                 className="col-12 col-md-6 col-lg-6 col-xl-4 mb-30"
               >
-                <article
-                  className="post-container"
-                  // onClick={() => handleModle(item?.blogKey)}
-                >
-                  <div className="post-thumb">
-                    <div className="d-block position-relative overflow-hidden">
-                      <Image
-                        src={`${item?.image_url}`}
-                        className="img-fluid"
-                        alt="image"
-                        width={895}
-                        height={552}
-                      />
+                <article className="post-container">
+                  <a
+                    href={item?.address}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="post-thumb">
+                      <div className="d-block position-relative overflow-hidden">
+                        <Image
+                          src={`${item?.image_url}`}
+                          className="img-fluid"
+                          alt="image"
+                          width={895}
+                          height={552}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </a>
                   {/* End .thumb */}
-                  <div className="post-content">
-                    {/* <div className="entry-header">
-                      <h3>{item?.title}</h3>
-                    </div> */}
+                  {/* <div className="post-content">
                     <div className="entry-content open-sans-font">
-                      <p>{item?.address?.slice(0, 100)}</p>
+                      <p>
+                        <a
+                          href={item?.address}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item?.address?.slice(0, 100)}
+                        </a>
+                      </p>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End .post-content */}
                 </article>
               </div>

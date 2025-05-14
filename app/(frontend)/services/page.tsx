@@ -89,7 +89,7 @@ const Services = () => {
                       <h3>{item?.title}</h3>
                     </div>
                     <div className="entry-content open-sans-font">
-                      <p>{item?.description?.slice(0, 100)}</p>
+                      <p>{item?.description}</p>
                     </div>
                   </div>
                 </article>

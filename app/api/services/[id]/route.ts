@@ -45,3 +45,40 @@ export async function DELETE(req: NextRequest, { params }:any) {
     );
   }
 }
+
+
+export async function PUT(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const title = formData.get("title") as string
+    const description = formData.get("description") as string
+    const image = formData.get("image") as string
+    const pool = await getConnection();
+
+    // Extraer ID desde la URL (suponiendo formato /api/services/:id)
+    const { pathname } = req.nextUrl;
+    const idMatch = pathname.match(/\/api\/services\/(\d+)/);
+    const ServiceKey = idMatch ? idMatch[1] : null;
+
+    if (!ServiceKey) {
+      return NextResponse.json(
+        { error: "ServiceKey es requerido en la URL" },
+        { status: 400 }
+      );
+    }
+
+    const query = `UPDATE SERVICE SET title = '${title}', description = '${description}', image_url = '${image}' WHERE ServiceKey = ${ServiceKey}`;
+
+    const result = await pool?.query(query);
+
+    return NextResponse.json({
+      message: `Registro con ServiceKey ${ServiceKey} actualizado exitosamente.`,
+    });
+  } catch (err) {
+    console.error("Error al actualizar el registro:", err);
+    return NextResponse.json(
+      { error: "Error al actualizar el registro de la base de datos" },
+      { status: 500 }
+    );
+  }
+}

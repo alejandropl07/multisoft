@@ -1,6 +1,5 @@
 
 const TermsPage = () => {
-  
   return (
     <div className="contact">
       <div
@@ -13,105 +12,69 @@ const TermsPage = () => {
         </h1>
         <span className="title-bg">Términos</span>
       </div>
+
       <div className="container" data-aos="fade-up" data-aos-duration="1200">
         <div className="row">
-          {/*  Left Side Starts */}
           <div className="col-12">
             <p className="open-sans-font mb-4">
-              These Terms of Service, together with LuxuryProspect's Privacy
-              Policy (https://luxuryprospect.com/privacy-policy/) and, if you
-              are a subscriber of LuxuryProspect's services, your Subscription
-              Agreement and LuxuryProspect's Billing Policy
-              (https://luxuryprospect.com/billing-terms/), set forth the terms
-              and conditions (the “Terms”) that apply to your access and use of
-              this website (the “Site”), our mobile apps (the "Apps") and
-              LuxuryProspect's services (the “Services”). “LuxuryProspect”
-              includes LuxuryProspect, Inc. and its officers, directors,
-              employees, consultants, affiliates, subsidiaries, and agents.
-            </p>
-            <p className="open-sans-font mb-4">
-              The Services may include, but are not limited to: (1) online
-              advertising services; (2) limited non-exclusive license of
-              LuxuryProspect's proprietary customer relationship management
-              software (the “Proprietary Software”) and certain copyrighted
-              materials; (3) training in the Proprietary Software; and (4)
-              certain support services provided by LuxuryProspect at its sole
-              discretion regarding the Proprietary Software.
-            </p>
-            <p className="open-sans-font mb-4">
-              By using the Services, you agree to these Terms, as updated from
-              time to time in accordance with Section 11 below. Because
-              LuxuryProspect provides a wide range of services, we may at times
-              ask you to review and accept supplemental terms that apply to your
-              interaction with a specific product or service. These Terms state
-              that any disputes between you and LuxuryProspect must be resolved
-              in arbitration or small claims court.
+              <strong>Última actualización:</strong> 29 de abril de 2025
             </p>
 
-            <ol>
-              <li>
-                <p className="open-sans-font mb-4">
-                  <strong>Account Security.</strong> To use the Services you
-                  must (i) be at least eighteen (18) years of age; (ii) have not
-                  previously been suspended or removed from the Services; and
-                  (iii) register for and use the Service in compliance with any
-                  and all applicable laws and regulations.
-                </p>
-              </li>
-              <li>
-                <p className="open-sans-font mb-4">
-                  <strong>Account Registration.</strong> Using the Services
-                  requires a LuxuryProspect account (the “Account”). When you
-                  register for your Account, we may ask you to give us certain
-                  identifying information about yourself, including but not
-                  limited to your email address and other contact information,
-                  and to create a user name and password (“Registration
-                  Information”). When registering for and maintaining an
-                  account, you agree to provide true, accurate, current, and
-                  complete information about yourself. You also agree not to
-                  impersonate anyone, misrepresent any affiliation with anyone
-                  else, use false information, or otherwise conceal your
-                  identity from LuxuryProspect for any purpose. You are solely
-                  responsible for maintaining the confidentiality and security
-                  of your Registration Information. For your protection and the
-                  protection of other users, we ask you not to share your
-                  Registration Information with anyone else. If you do share
-                  this information with anyone, we will consider their
-                  activities to have been authorized by you. If you have reason
-                  to believe that your account is no longer secure, you must
-                  immediately notify us.
-                </p>
-              </li>
-              <li>
-                <p className="open-sans-font mb-4">
-                  <strong>Payment.</strong> You understand that prior to
-                  LuxuryProspect providing the Services, you are required to
-                  choose a Subscription Plan, enter into a Subscription
-                  Agreement, and pay all fees listed in your Subscription
-                  Agreement.By starting your Subscription Plan, you authorize us
-                  to charge fees per the terms of your Subscription Agreement,
-                  and any other charges you may incur in connection with your
-                  use of the Services. You will be automatically charged each
-                  month, or, in the case of a prepaid plan, per the terms of
-                  such plan, for your ongoing use of the Services. All prices
-                  are payable in USD, and all payments are non-refundable. You
-                  are responsible for paying any applicable taxes. If you fail
-                  to pay the full amount due for any or all of the Services,
-                  LuxuryProspect may, at its sole discretion in accordance with
-                  and subject to any applicable law, suspend any or all of the
-                  Services.Please carefully review the Billing Policy, which
-                  contains detailed information regarding how we charge you for
-                  the Services, how we handle payment disputes, your Ad Budget
-                  requirements, how to cancel or renew your subscription, and
-                  other topics related to payment. In the event that these Terms
-                  and the Billing Policy conflict, these Terms control.
-                </p>
-              </li>
-            </ol>
+            <p className="open-sans-font mb-4">
+              Bienvenido al sitio web de MultiSoft. Al acceder y utilizar nuestro sitio web, usted acepta cumplir con los siguientes términos y condiciones. Si no está de acuerdo con estos términos, por favor no utilice nuestro sitio web.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              1. Uso del sitio web
+            </h3>
+            <p className="open-sans-font mb-4">
+              El contenido de este sitio web es solo para su uso personal y no comercial. Usted no puede copiar, modificar, distribuir, transmitir, mostrar, realizar, reproducir, publicar, licenciar, crear trabajos derivados, transferir o vender cualquier información, software, productos o servicios obtenidos de este sitio web sin el permiso previo por escrito de MultiSoft.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              2. Propiedad intelectual
+            </h3>
+            <p className="open-sans-font mb-4">
+              Todo el contenido, incluyendo pero no limitado a texto, gráficos, logotipos, íconos, imágenes, clips de audio, descargas digitales, compilaciones de datos y software, es propiedad de MultiSoft o sus proveedores de contenido y está protegido por las leyes de derechos de autor y otras leyes de propiedad intelectual.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              3. Enlaces a sitios de terceros
+            </h3>
+            <p className="open-sans-font mb-4">
+              Nuestro sitio web puede contener enlaces a sitios web de terceros. Estos enlaces se proporcionan únicamente para su conveniencia. MultiSoft no tiene control sobre estos sitios web y no es responsable de su contenido ni de cualquier daño o pérdida que pueda surgir del uso de estos sitios web.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              4. Exención de responsabilidad
+            </h3>
+            <p className="open-sans-font mb-4">
+              El contenido de este sitio web se proporciona "tal cual" y "según disponibilidad". MultiSoft no garantiza que el sitio web esté libre de errores o que esté disponible de manera ininterrumpida. MultiSoft no se hace responsable de ningún daño directo, indirecto, incidental, especial o consecuente que resulte del uso o la imposibilidad de usar este sitio web.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              5. Modificaciones a los términos de servicios
+            </h3>
+            <p className="open-sans-font mb-4">
+              MultiSoft se reserva el derecho de modificar estos términos de servicios en cualquier momento. Las modificaciones serán efectivas inmediatamente después de su publicación en el sitio web. Es su responsabilidad revisar estos términos periódicamente para estar informado de cualquier cambio.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              6. Ley aplicable
+            </h3>
+            <p className="open-sans-font mb-4">
+              Estos términos de servicios se regirán e interpretarán de acuerdo con las leyes de la República de Cuba en el que MultiSoft está registrado, sin dar efecto a cualquier principio de conflictos de leyes.
+            </p>
+
+            <h3 className="text-uppercase custom-title mb-0 ft-wt-600 pb-3">
+              7. Contacto
+            </h3>
+            <p className="open-sans-font mb-4">
+              Si tiene alguna pregunta o inquietud sobre estos términos de servicios, por favor contáctenos a través de <a href="mailto:comercial@multisoft-ti.com">comercial@multisoft-ti.com</a> o al teléfono <a href="tel:+5352864860">+53 52 864860</a>.
+            </p>
           </div>
         </div>
       </div>
-      {/* End .container */}
     </div>
   );
 };
